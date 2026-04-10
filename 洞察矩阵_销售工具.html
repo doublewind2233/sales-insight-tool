@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电力交易洞察矩阵 — 销售工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans SC', sans-serif; }
+    .step-dot { transition: all 0.3s ease; }
+    .step-dot.active { background: #6366f1; color: white; transform: scale(1.15); }
+    .step-dot.done { background: #10b981; color: white; }
+    .step-content { display: none; }
+    .step-content.active { display: block; animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
+    .option-card { transition: all 0.2s ease; cursor: pointer; }
+    .option-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.12); }
+    .option-card.selected { border-color: #6366f1; background: #eef2ff; box-shadow: 0 0 0 3px rgba(99,102,241,0.18); }
+    .product-card { transition: all 0.3s ease; }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .product-card.recommended { border-color: #f59e0b; background: linear-gradient(135deg,#fffbeb,#fef9e7); }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 500; }
+    @media print {
+      body > *:not(.print-section) { display: none !important; }
+      .print-section { display: block !important; }
+      .no-print { display: none !important; }
+    }
+    .progress-bar { transition: width 0.5s ease; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+<!-- Header -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-indigo-500 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      </div>
+      <div>
+        <h1 class="text-base font-bold text-slate-800">电力交易洞察矩阵</h1>
+        <p class="text-xs text-slate-400">销售赋能工具 · V1.0</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span id="timer">00:00</span>
+    </div>
+  </div>
+</header>
+
+<!-- Progress Bar -->
+<div class="no-print bg-white border-b border-slate-100">
+  <div class="max-w-5xl mx-auto px-6 py-3">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-xs font-medium text-slate-500" id="step-label">第 1 步 / 共 4 步</span>
+      <span class="text-xs text-slate-400" id="step-title">客户画像</span>
+    </div>
+    <div class="w-full bg-slate-100 rounded-full h-1.5">
+      <div class="progress-bar bg-indigo-500 h-1.5 rounded-full" id="progress-bar" style="width:25%"></div>
+    </div>
+    <div class="flex items-center gap-3 mt-3">
+      <div class="step-dot w-7 h-7 rounded-full border-2 border-slate-200 flex items-center justify-center text-xs font-semibold active" id="dot1">1</div>
+      <div class="step-dot w-7 h-7 rounded-full border-2 border-slate-200 flex items-center justify-center text-xs font-semibold" id="dot2">2</div>
+      <div class="step-dot w-7 h-7 rounded-full border-2 border-slate-200 flex items-center justify-center text-xs font-semibold" id="dot3">3</div>
+      <div class="step-dot w-7 h-7 rounded-full border-2 border-slate-200 flex items-center justify-center text-xs font-semibold" id="dot4">4</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<main class="max-w-5xl mx-auto px-6 py-8">
+
+  <!-- ======= STEP 1: 画像预诊 ======= -->
+  <div class="step-content active" id="step1">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-1">客户画像预诊</h2>
+      <p class="text-sm text-slate-500">回答以下5个问题，5分钟内摸清客户全貌</p>
+    </div>
+
+    <!-- Q1: 客户类型 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-indigo-100 text-indigo-600">Q1</span>
+        <h3 class="font-semibold text-slate-700">客户是什么类型？</h3>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" data-question="q1">
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="A">
+          <div class="text-2xl mb-2">🏪</div>
+          <div class="font-semibold text-slate-800 text-sm">售电公司</div>
+          <div class="text-xs text-slate-400 mt-1">买进卖出/有用户/有结算</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="B">
+          <div class="text-2xl mb-2">⚡</div>
+          <div class="font-semibold text-slate-800 text-sm">发电企业</div>
+          <div class="text-xs text-slate-400 mt-1">自有电站/场站</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="C">
+          <div class="text-2xl mb-2">🏭</div>
+          <div class="font-semibold text-slate-800 text-sm">用电企业/园区</div>
+          <div class="text-xs text-slate-400 mt-1">工商业，买电为主</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="D">
+          <div class="text-2xl mb-2">🤝</div>
+          <div class="font-semibold text-slate-800 text-sm">代理商/居间商</div>
+          <div class="text-xs text-slate-400 mt-1">撮合交易·收居间费</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="E">
+          <div class="text-2xl mb-2">📊</div>
+          <div class="font-semibold text-slate-800 text-sm">其他</div>
+          <div class="text-xs text-slate-400 mt-1">政策/投资</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2: 省份 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-indigo-100 text-indigo-600">Q2</span>
+        <h3 class="font-semibold text-slate-700">主要业务在哪个省份？</h3>
+      </div>
+      <div class="flex flex-wrap gap-2" data-question="q2">
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="广东">广东</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="浙江">浙江</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="山东">山东</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="山西">山西</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="内蒙古">内蒙古</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="江苏">江苏</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="四川">四川</button>
+        <button class="option-card border-2 border-slate-200 rounded-lg px-4 py-2 bg-white text-sm text-slate-600" data-value="其他">其他省份</button>
+      </div>
+      <div id="q2-market" class="mt-3 hidden">
+        <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span id="q2-market-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3: 成熟度 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-indigo-100 text-indigo-600">Q3</span>
+        <h3 class="font-semibold text-slate-700">电力业务做到什么程度了？</h3>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" data-question="q3">
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="A">
+          <div class="text-sm font-semibold text-slate-800">A · 完全没做过</div>
+          <div class="text-xs text-slate-400 mt-1">还在了解阶段</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="B">
+          <div class="text-sm font-semibold text-slate-800">B · 刚开始做</div>
+          <div class="text-xs text-slate-400 mt-1">几个月，还没跑顺</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="C">
+          <div class="text-sm font-semibold text-slate-800">C · 做1年以上</div>
+          <div class="text-xs text-slate-400 mt-1">想扩大规模</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="D">
+          <div class="text-sm font-semibold text-slate-800">D · 遇到瓶颈</div>
+          <div class="text-xs text-slate-400 mt-1">做了很久，想突破</div>
+        </div>
+      </div>
+      <div id="q3-tip" class="mt-3 hidden">
+        <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-xs text-blue-700">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span id="q3-tip-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4: 核心诉求 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-indigo-100 text-indigo-600">Q4</span>
+        <h3 class="font-semibold text-slate-700">最想解决什么问题？（可多选）</h3>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" data-question="q4">
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="申报">
+          <div class="text-xl mb-1">📋</div>
+          <div class="text-xs font-medium text-slate-700">申报不准/偏差超标</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="预测">
+          <div class="text-xl mb-1">📈</div>
+          <div class="text-xs font-medium text-slate-700">不知道明天电价</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="结算">
+          <div class="text-xl mb-1">🧮</div>
+          <div class="text-xs font-medium text-slate-700">结算太复杂</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="数据">
+          <div class="text-xl mb-1">📊</div>
+          <div class="text-xs font-medium text-slate-700">数据采集/质量差</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="成本">
+          <div class="text-xl mb-1">💰</div>
+          <div class="text-xs font-medium text-slate-700">电价高/降成本</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="用户">
+          <div class="text-xl mb-1">👥</div>
+          <div class="text-xs font-medium text-slate-700">用户管理难</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="开始">
+          <div class="text-xl mb-1">🚀</div>
+          <div class="text-xs font-medium text-slate-700">不知道怎么开始</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-lg p-3 bg-white text-center" data-value="政策">
+          <div class="text-xl mb-1">📜</div>
+          <div class="text-xs font-medium text-slate-700">政策老变/看不懂</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5: 规模 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="tag bg-indigo-100 text-indigo-600">Q5</span>
+        <h3 class="font-semibold text-slate-700">规模和资源摸底</h3>
+      </div>
+      <div class="grid grid-cols-3 gap-3" data-question="q5">
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="大">
+          <div class="text-sm font-semibold text-slate-800">🏭 大规模</div>
+          <div class="text-xs text-slate-400 mt-1">多省布局 / 大装机量 / 多用户</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="中">
+          <div class="text-sm font-semibold text-slate-800">🏠 中等规模</div>
+          <div class="text-xs text-slate-400 mt-1">单省稳定运营 / 少量专职人员</div>
+        </div>
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white" data-value="小">
+          <div class="text-sm font-semibold text-slate-800">🏠 小规模/初创</div>
+          <div class="text-xs text-slate-400 mt-1">刚起步 / 无专职 / Excel为主</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-8">
+      <button onclick="goStep(2)" id="step1-next" disabled class="bg-indigo-500 hover:bg-indigo-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center gap-2">
+        生成画像
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======= STEP 2: 画像卡 + 隐性需求 ======= -->
+  <div class="step-content" id="step2">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-1">客户画像卡</h2>
+      <p class="text-sm text-slate-500">基于预诊结果，自动生成画像分析</p>
+    </div>
+
+    <!-- Profile Header -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-white font-bold text-lg" id="profile-type">—</div>
+            <div class="text-white/70 text-sm mt-0.5" id="profile-desc">—</div>
+          </div>
+          <div class="text-right text-white/80 text-sm">
+            <div class="font-semibold text-white" id="profile-cluster">—</div>
+            <div class="text-xs mt-0.5 opacity-80" id="profile-cluster-sub">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="p-6 grid grid-cols-2 sm:grid-cols-4 gap-4" id="profile-details"></div>
+    </div>
+
+    <!-- Pain Points -->
+    <div class="mb-6">
+      <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-red-100 text-red-500 flex items-center justify-center text-sm font-bold">!</span>
+        该类型客户的典型痛点
+      </h3>
+      <div id="pain-points" class="space-y-2"></div>
+    </div>
+
+    <!-- Hidden Needs -->
+    <div class="mb-6">
+      <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm">💡</span>
+        隐性需求挖掘（客户没说，但你该提）
+      </h3>
+      <div class="space-y-2" id="hidden-needs"></div>
+    </div>
+
+    <div class="flex items-center justify-between mt-8">
+      <button onclick="goStep(1)" class="text-slate-500 hover:text-slate-700 font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        返回修改
+      </button>
+      <button onclick="goStep(3)" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center gap-2">
+        查看产品推荐
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======= STEP 3: 产品推荐 ======= -->
+  <div class="step-content" id="step3">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-1">产品推荐</h2>
+      <p class="text-sm text-slate-500">基于画像匹配，自动推荐最优产品组合</p>
+    </div>
+
+    <!-- 主推 -->
+    <div class="mb-6">
+      <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 rounded-full px-3 py-1 text-xs font-bold mb-4">
+        ⭐ 主推方案
+      </div>
+      <div id="primary-product" class="product-card recommended border-2 border-amber-300 rounded-2xl p-6 shadow-md"></div>
+    </div>
+
+    <!-- 搭配 -->
+    <div class="mb-6">
+      <div class="inline-flex items-center gap-1.5 bg-indigo-100 text-indigo-600 rounded-full px-3 py-1 text-xs font-bold mb-4">
+        ➕ 推荐搭配
+      </div>
+      <div id="secondary-products" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- 价值主张 -->
+    <div class="bg-gradient-to-r from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200 mb-6">
+      <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        核心价值主张
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="value-props"></div>
+    </div>
+
+    <!-- 话术 -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
+      <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        破冰话术建议
+      </h3>
+      <div class="bg-slate-50 rounded-xl p-4 border-l-4 border-indigo-400 mb-3">
+        <p class="text-slate-700 text-sm leading-relaxed" id="talk-script"></p>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700">
+        💡 <strong>追问三板斧：</strong>① "背后是因为什么？" &nbsp;② "还有什么让你睡不着？" &nbsp;③ "如果解决了有多大改善？"
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-8">
+      <button onclick="goStep(2)" class="text-slate-500 hover:text-slate-700 font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        返回画像
+      </button>
+      <button onclick="goStep(4)" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center gap-2">
+        生成沟通摘要
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======= STEP 4: 摘要 ======= -->
+  <div class="step-content" id="step4">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-slate-800 mb-1">沟通摘要</h2>
+      <p class="text-sm text-slate-500">一键导出给客户带走，或打印存档</p>
+    </div>
+
+    <!-- 摘要卡 -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden mb-6" id="summary-card">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-4">
+        <div class="text-white font-bold text-lg">📋 客户洞察摘要</div>
+        <div class="text-white/70 text-sm mt-0.5" id="summary-date"></div>
+      </div>
+      <div class="p-6 space-y-5" id="summary-content"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 text-center mb-6">
+      <div class="text-lg font-bold text-slate-800 mb-1">确认合作意向？</div>
+      <div class="text-sm text-slate-500 mb-4">下一步可安排需求对接会议，由产品团队提供定制化方案</div>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <button onclick="window.print()" class="bg-white border border-indigo-300 text-indigo-600 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-indigo-50 transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          打印 / 导出PDF
+        </button>
+        <button onclick="saveRecord()" class="bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-indigo-600 transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          保存到本地
+        </button>
+        <button onclick="resetAll()" class="bg-white border border-slate-300 text-slate-600 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-slate-50 transition-colors">
+          🔄 重新开始
+        </button>
+      </div>
+    </div>
+
+    <!-- 历史记录 -->
+    <div id="records-section" class="hidden">
+      <h3 class="font-bold text-slate-700 mb-3 text-sm">📋 本地已保存记录</h3>
+      <div id="records-list" class="space-y-2"></div>
+    </div>
+
+    <div class="flex items-center justify-between mt-8">
+      <button onclick="goStep(3)" class="text-slate-500 hover:text-slate-700 font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        返回产品推荐
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-xl text-sm font-medium hidden z-50">
+  <span id="toast-msg">已保存</span>
+</div>
+
+<script>
+// ==================== DATA ====================
+const PRODUCTS = {
+  'P-01': {
+    name: '标准化售电平台', tag: '买断部署',
+    desc: '开箱即用的全功能售电管理平台，覆盖主流省份通用场景',
+    features: ['合同管理 / 申报辅助 / 结算核查', '私有化部署 + 年度运维', '交付周期约4周'],
+    color: 'bg-blue-500', tagColor: 'bg-blue-100 text-blue-700'
+  },
+  'P-02': {
+    name: '定制化售电平台', tag: '项目交付',
+    desc: '深度贴合客户个性化业务逻辑，多省统一管理，复杂结算体系',
+    features: ['多省差异化规则引擎', 'AI交易策略中心', '与ERP/财务系统深度集成', '项目制交付'],
+    color: 'bg-purple-500', tagColor: 'bg-purple-100 text-purple-700'
+  },
+  'P-03': {
+    name: 'SaaS化售电平台', tag: '订阅制',
+    desc: '云端订阅，无需采购服务器，注册即用，最快1天上线',
+    features: ['按月/年付费，零硬件投入', '无需运维，规则变化自动适配', '数据隔离，多租户安全'],
+    color: 'bg-teal-500', tagColor: 'bg-teal-100 text-teal-700'
+  },
+  'P-04': {
+    name: '轻量BI电价预测工具', tag: '链接即用',
+    desc: '无需部署，浏览器直接访问，电价预测 + 用能分析看板',
+    features: ['日前电价预测曲线', '实时vs预测对比', '价格预警推送', '可嵌入钉钉/企微'],
+    color: 'bg-orange-500', tagColor: 'bg-orange-100 text-orange-700'
+  },
+  'P-05': {
+    name: '代理交易服务', tag: '人工运营',
+    desc: '我方代为执行日常交易申报与策略优化，附SLA承诺',
+    features: ['日常申报代执行', '每日策略建议报告', '重要节点专项支持', '实时预警响应'],
+    color: 'bg-green-500', tagColor: 'bg-green-100 text-green-700'
+  },
+  'P-06': {
+    name: '居间管理模块', tag: '可独立可嵌入',
+    desc: '专为居间商/代理商设计，客户管理与分润结算合规留痕',
+    features: ['居间客户档案', '多模式分润规则', '自动居间费结算', '合规服务留痕'],
+    color: 'bg-pink-500', tagColor: 'bg-pink-100 text-pink-700'
+  },
+};
+
+const MARKET_INFO = {
+  '广东': '现货已运行（国内最早推进现货市场的省份之一）',
+  '浙江': '现货已运行（国内最早推进现货市场的省份之一）',
+  '山东': '现货已运行',
+  '山西': '现货已运行（以煤电为主）',
+  '内蒙古': '现货试点中（新能源占比高）',
+  '江苏': '现货未完全运行（中长期为主）',
+  '四川': '现货试点（以水电为主）',
+  '其他': '政策阶段请核实当地最新公告',
+};
+
+const TYPE_INFO = {
+  'A': { name: '售电公司', desc: '买进卖出，赚取差价，有用户管理需求', cluster: '售电侧全链路', clusterSub: '侧重：申报辅助·偏差管控·结算·用户管理' },
+  'B': { name: '发电企业', desc: '自有电站/场站，卖电为主', cluster: '发电侧 + 交叉协同', clusterSub: '侧重：现货申报·功率预测·竞价策略' },
+  'C': { name: '用电企业/园区', desc: '工商业主体，买电为主', cluster: '用电侧', clusterSub: '侧重：电价分析·用能优化·需求响应' },
+  'D': { name: '代理商/居间商', desc: '撮合交易，赚居间费', cluster: '售电侧（居间专项）', clusterSub: '侧重：居间管理·分润·合规留痕' },
+  'E': { name: '其他主体', desc: '政策/投资方', cluster: '政策分析 + 市场测算', clusterSub: '侧重：市场机会评估·政策解读' },
+};
+
+const PAIN_POINTS = {
+  'A': ['偏差老超标，不知道哪里出问题', '用户曲线数据采集不全，96点报不准', '结算太复杂，月底人工对账头疼', '多省布局后规则差异大，系统跟不上'],
+  'B': ['现货申报不知道怎么报量', '功率预测精度不够，D+1误差大', '缺乏盯盘能力，错过高价窗口', '收益归因不清楚哪里赚了亏了'],
+  'C': ['不知道明天电价，排产计划难定', '峰谷用电不合理，电费偏高', '数据采集困难，用能情况看不清', '政策老变，不知道怎么参与'],
+  'D': ['居间费计算复杂，月底总出错', '客户信息分散，跟进记录不全', '分润规则经常变动，核算困难', '合规留痕要求越来越严'],
+  'E': ['政策太复杂，看不懂', '不知道现在入场晚不晚', '不确定市场规模和机会', '不知道选哪个产品开始'],
+};
+
+const HIDDEN_NEEDS_MAP = {
+  'A': {
+    '申报': '偏差归因分析 — 偏差超标背后，是预测不准、用户数据差、还是曲线分解有问题？',
+    '预测': '负荷预测 + 电价预测联动 — 申报前你知道自己的曲线该报多少吗？',
+    '结算': '自动化结算引擎 — 偏差回收、超额获利回收、月度重算，你算清楚了吗？',
+    '数据': '天眼采集 + 负荷画像 — 你能准确说出每个用户的96点曲线吗？多少数据是估算的？',
+    '成本': '用户批量策略优化 — 相似用户聚类过吗？不同类型用户应该差异化报价',
+    '用户': '用户全生命周期管理 — 有没有用户失联或合同流失但没有预警的情况？',
+    '开始': '市场准入评估 — 你们所在省份入场门槛是什么？资质和人员到位了吗？',
+    '政策': '省份规则差异梳理 — 你是哪个省？跨省运营的话，每省规则都搞清楚了吗？',
+  },
+  'B': {
+    '申报': '偏差归因分析 + 事前预警能力 — 你知道是哪个环节导致收益损失吗？',
+    '预测': 'AI预测工具 — 预测用的是经验还是系统？纯经验预测误差通常较大',
+    '结算': '全链路结算引擎 — 偏差回收、超额获利回收，你算清楚了吗？',
+    '数据': '天眼采集平台升级 — 采集靠什么？爬虫经常挂吗？',
+    '成本': '碳电协同分析 — 绿电+碳资产打包，能带来多少额外收益？',
+    '用户': '供需匹配 — 有没有想过把富余电量和售电侧用户直接撮合？',
+    '开始': '市场阶段诊断 + 政策窗口评估 — 你知道现在入场时机如何吗？',
+    '政策': '市场政策实时跟踪 — 规则老变，你们现在靠什么跟？',
+  },
+  'C': {
+    '申报': '需求响应参与机会 — 你们有多少可调负荷？参与有补贴知道吗？',
+    '预测': '轻量BI电价预测工具 — 只想知道明天电价高低，不需要完整系统',
+    '结算': '偏差考核成本测算 — 偏差考核吃掉了多少利润，有没有算过？',
+    '数据': '用能数据采集 — 现在谁在给你们采集数据？频率够不够？',
+    '成本': '用电结构优化建议 — 峰谷分布合理吗？可以通过调整生产班次降成本',
+    '用户': '多用户聚合管理 — 园区里各企业的用能数据有没有统一看？',
+    '开始': '市场准入评估 — 大型工商业参与市场需要什么资质？电网代理还是直接进场？',
+    '政策': '省份政策定制化解读 — 你是哪个省？每个省入市门槛差异很大',
+  },
+  'D': {
+    '申报': '代理交易服务 — 没有专职交易员，申报靠谁？',
+    '预测': '轻量BI预测工具 — 只想知道电价高低，不需要完整系统',
+    '结算': '自动居间费结算 — 月底核算要多久？有没有发现结果和预期有出入？',
+    '数据': '居间客户档案 + 合规留痕 — 监管要求越来越严，你们跟上了吗？',
+    '成本': '居间收益分析 — 各客户的贡献度排名算过吗？哪些客户最值得维护？',
+    '用户': '多模式分润规则配置 — 分润规则变动时，系统能快速调整吗？',
+    '开始': '居间代理轻资产切入 — 你们第一批种子用户从哪来？有没有现成资源？',
+    '政策': '省份政策定制化解读 — 你是哪个省？每个省居间资质要求差异很大',
+  },
+  'E': {
+    '申报': '行业调研报告 — 想了解同行都在用什么，报量策略是什么？',
+    '预测': '市场机会评估 — 你们适合哪种业务模式？发电、售电还是居间？',
+    '结算': 'ROI测算工具 — 不同方案投入产出比是多少？',
+    '数据': '市场数据订阅 — 需要持续跟踪哪些数据？',
+    '成本': '综合能源方案 — 有没有发电+用电的资源组合可以做一体化方案？',
+    '用户': '用户获取方案 — 居间切入需要第一批种子用户，从哪来？',
+    '开始': '市场准入评估 — 你们所在省份入场门槛是什么？资质够吗？',
+    '政策': '政策时效性评估 — 现在政策窗口什么时候收？越晚入场越被动',
+  },
+};
+
+const PRODUCT_MAP = {
+  'A': { primary: 'P-01', secondary: ['P-04', 'P-06'], values: ['4周交付，开箱即用，售电公司首选', '内置AI电价+负荷预测，偏差管控有闭环', '自动化结算引擎，月底不用再手工对账', '从工具到服务，没有专职交易员也能跑起来'] },
+  'B': { primary: 'P-02', secondary: ['P-04', 'P-05'], values: ['只做电力，所有功能贴合真实交易场景', '深度定制，多省规则引擎按需配置', '从工具到服务，既能卖平台也能代运营', '系统故障有熔断机制，申报失误有兜底'] },
+  'C': { primary: 'P-04', secondary: ['P-03', 'P-05'], values: ['链接即用，无需部署，先用起来再说', '日前电价预测，排产计划有依据', '用电结构分析，找出降本空间', '按需升级，丰俭由人'] },
+  'D': { primary: 'P-06', secondary: ['P-03', 'P-05'], values: ['居间费自动算，月底不用再对', '合规留痕，监管查也不怕', '分润规则灵活配置，变动时一键调整', '客户档案全链路管理，不漏掉任何一个跟进'] },
+  'E': { primary: 'P-03', secondary: ['P-04', 'P-01'], values: ['零门槛起步，先用起来再说', 'BI工具先跑起来，感受数据价值', '按需升级，丰俭由人，不强制买断', '咨询+工具+运营，按需组合'] },
+};
+
+const TALK_SCRIPTS = {
+  'A': '你们现在终端用户大概有多少家？有多少家的负荷曲线是真正掌握的？偏差考核每个月大概要交多少罚款？我们遇到很多售电公司都卡在"数据看不清，申报靠拍脑袋"这一步，偏差一超标一个月就白干了。其实一套好的负荷预测加自动化结算工具，就能解决大半问题。',
+  'B': '你们场站现在报量是用什么方式？靠经验还是系统？广东/浙江的现货价格波动很大，如果预测偏差10%，一整月可能就损失几十万。我们有专门针对新能源的功率预测和现货申报辅助工具，要不要看看？',
+  'C': '你们现在最头疼的是什么？是想知道明天电价高低方便排产，还是想看看用电结构有没有优化空间？我们有一个轻量BI工具，链接就能用，不需要部署，可以先给你们试试看。',
+  'D': '你们现在每个月居间费结算要多久？分润规则复杂吗？我们遇到很多居间商，月底核算居间费要花好几天，而且一旦规则调整就要重新手工算，容易出错也容易扯皮。我们有专门的居间管理模块，要不要了解一下？',
+  'E': '你们现在最困惑的是什么？是不知道这个市场值不值得进，还是知道要进但不知道从哪开始？我们接触过很多和你们情况类似的企业，一般先从BI工具或者SaaS轻量版入手，零投入先用起来，有了数据支撑再做决策，会稳妥很多。',
+};
+
+// ==================== STATE ====================
+const state = { q1: null, q2: null, q3: null, q4: [], q5: null };
+let startTime = Date.now();
+let timerInterval = null;
+
+// ==================== TIMER ====================
+function startTimer() {
+  timerInterval = setInterval(() => {
+    const s = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('timer').textContent = `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  }, 1000);
+}
+startTimer();
+
+// ==================== NAVIGATION ====================
+function goStep(n) {
+  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+  document.getElementById(`step${n}`).classList.add('active');
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i+1 < n) d.classList.add('done');
+    if (i+1 === n) d.classList.add('active');
+  });
+  document.getElementById('progress-bar').style.width = `${n*25}%`;
+  document.getElementById('step-label').textContent = `第 ${n} 步 / 共 4 步`;
+  const titles = ['客户画像', '画像分析', '产品推荐', '沟通摘要'];
+  document.getElementById('step-title').textContent = titles[n-1];
+  if (n === 2) renderStep2();
+  if (n === 3) renderStep3();
+  if (n === 4) renderStep4();
+}
+
+// ==================== OPTION SELECTION ====================
+function initOptions() {
+  document.querySelectorAll('[data-question]').forEach(group => {
+    const q = group.dataset.question;
+    const isMulti = q === 'q4';
+    group.querySelectorAll('.option-card, button').forEach(card => {
+      card.addEventListener('click', () => {
+        if (isMulti) {
+          card.classList.toggle('selected');
+          const selected = [...group.querySelectorAll('.selected')].map(c => c.dataset.value);
+          state[q] = selected;
+        } else {
+          group.querySelectorAll('.option-card, button').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          state[q] = card.dataset.value;
+        }
+        validateStep1();
+        handleSideEffects(q);
+      });
+    });
+  });
+}
+
+function handleSideEffects(q) {
+  if (q === 'q2' && state.q2) {
+    const el = document.getElementById('q2-market');
+    const text = MARKET_INFO[state.q2] || MARKET_INFO['其他'];
+    document.getElementById('q2-market-text').textContent = text;
+    el.classList.remove('hidden');
+  }
+  if (q === 'q3' && state.q3) {
+    const tips = { A: '建议先做市场教育 + 入门方案，不推复杂系统', B: '哪块最头疼？申报、结算、还是用户管理？', C: '想扩大规模，现在卡在哪里？缺客户、缺工具、还是缺策略？', D: '具体是什么瓶颈？人手不够、系统跟不上、还是收益不达预期？' };
+    const el = document.getElementById('q3-tip');
+    document.getElementById('q3-tip-text').textContent = tips[state.q3];
+    el.classList.remove('hidden');
+  }
+}
+
+function validateStep1() {
+  const ok = state.q1 && state.q2 && state.q3 && state.q4.length > 0 && state.q5;
+  document.getElementById('step1-next').disabled = !ok;
+}
+
+// ==================== RENDER STEP 2 ====================
+function renderStep2() {
+  const t = TYPE_INFO[state.q1];
+  const market = state.q2;
+  const marketNote = MARKET_INFO[market] || '';
+  const pains = PAIN_POINTS[state.q1] || [];
+  const q4Selected = state.q4;
+
+  document.getElementById('profile-type').textContent = `【${state.q1}类】${t.name}`;
+  document.getElementById('profile-desc').textContent = t.desc;
+  document.getElementById('profile-cluster').textContent = t.cluster;
+  document.getElementById('profile-cluster-sub').textContent = t.clusterSub;
+
+  document.getElementById('profile-details').innerHTML = `
+    <div class="text-center p-3 bg-slate-50 rounded-xl">
+      <div class="text-xs text-slate-400 mb-1">省份</div>
+      <div class="font-semibold text-slate-800">${market}</div>
+      <div class="text-xs text-slate-400 mt-0.5">${marketNote.split('（')[0]}</div>
+    </div>
+    <div class="text-center p-3 bg-slate-50 rounded-xl">
+      <div class="text-xs text-slate-400 mb-1">成熟度</div>
+      <div class="font-semibold text-slate-800">${state.q3}级</div>
+      <div class="text-xs text-slate-400 mt-0.5">${['完全没做过','刚开始做','做1年以上','遇到瓶颈'][parseInt(state.q3)-1]}</div>
+    </div>
+    <div class="text-center p-3 bg-slate-50 rounded-xl">
+      <div class="text-xs text-slate-400 mb-1">规模</div>
+      <div class="font-semibold text-slate-800">${state.q5 === '大' ? '大型' : state.q5 === '中' ? '中型' : '小型'}</div>
+      <div class="text-xs text-slate-400 mt-0.5">${state.q5 === '大' ? '多省布局/大装机' : state.q5 === '中' ? '单省/少量专职' : '刚起步/无专职'}</div>
+    </div>
+    <div class="text-center p-3 bg-slate-50 rounded-xl">
+      <div class="text-xs text-slate-400 mb-1">核心诉求</div>
+      <div class="font-semibold text-slate-800 text-xs">${q4Selected.join(' · ')}</div>
+    </div>
+  `;
+
+  document.getElementById('pain-points').innerHTML = pains.map(p => `
+    <div class="flex items-center gap-3 bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-700">
+      <span class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0"></span>${p}
+    </div>
+  `).join('');
+
+  const hiddenNeedsMap = HIDDEN_NEEDS_MAP[state.q1] || {};
+  const hiddenItems = q4Selected
+    .filter(k => hiddenNeedsMap[k])
+    .map((k, i) => `
+      <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm">
+        <div class="font-semibold text-amber-800 mb-1">💡 隐性需求 · ${k}</div>
+        <div class="text-amber-700">${hiddenNeedsMap[k]}</div>
+      </div>
+    `);
+
+  document.getElementById('hidden-needs').innerHTML = hiddenItems.length ? hiddenItems.join('') :
+    '<div class="text-sm text-slate-400 italic">暂无基于当前选择的隐性需求，请先在Q4中选择核心诉求</div>';
+}
+
+// ==================== RENDER STEP 3 ====================
+function renderStep3() {
+  const rec = PRODUCT_MAP[state.q1];
+  const primary = PRODUCTS[rec.primary];
+
+  // Primary product
+  document.getElementById('primary-product').innerHTML = `
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl ${primary.color} flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-bold text-slate-800 text-lg">${primary.name}</h3>
+          <span class="tag ${primary.tagColor}">${primary.tag}</span>
+        </div>
+        <p class="text-slate-600 text-sm mb-3">${primary.desc}</p>
+        <div class="flex flex-wrap gap-2">
+          ${primary.features.map(f => `<span class="inline-block bg-slate-100 text-slate-600 rounded-full px-3 py-1 text-xs">${f}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Secondary products
+  document.getElementById('secondary-products').innerHTML = rec.secondary.map(pid => {
+    const p = PRODUCTS[pid];
+    return `
+      <div class="product-card border border-slate-200 rounded-xl p-4 bg-white">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg ${p.color} flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-xs font-bold">${pid}</span>
+          </div>
+          <div>
+            <div class="font-semibold text-slate-800 text-sm">${p.name}</div>
+            <span class="tag ${p.tagColor} text-xs">${p.tag}</span>
+          </div>
+        </div>
+        <p class="text-slate-500 text-xs leading-relaxed">${p.desc}</p>
+      </div>
+    `;
+  }).join('');
+
+  // Value props
+  document.getElementById('value-props').innerHTML = rec.values.map(v => `
+    <div class="flex items-start gap-2 bg-white rounded-lg px-3 py-2 border border-slate-100">
+      <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
+      <span class="text-slate-700 text-sm">${v}</span>
+    </div>
+  `).join('');
+
+  // Talk script
+  const scriptMap = TALK_SCRIPTS[state.q1] || TALK_SCRIPTS['E'];
+  document.getElementById('talk-script').textContent = scriptMap;
+}
+
+// ==================== RENDER STEP 4 ====================
+function renderStep4() {
+  const t = TYPE_INFO[state.q1];
+  const rec = PRODUCT_MAP[state.q1];
+  const primary = PRODUCTS[rec.primary];
+  const secondaryNames = rec.secondary.map(pid => PRODUCTS[pid].name).join(' + ');
+  const now = new Date();
+  document.getElementById('summary-date').textContent = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} 生成`;
+
+  document.getElementById('summary-content').innerHTML = `
+    <div>
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">客户基本信息</div>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="bg-slate-50 rounded-lg px-3 py-2 text-xs"><span class="text-slate-400">类型：</span><span class="font-medium text-slate-700">${t.name}</span></div>
+        <div class="bg-slate-50 rounded-lg px-3 py-2 text-xs"><span class="text-slate-400">省份：</span><span class="font-medium text-slate-700">${state.q2}</span></div>
+        <div class="bg-slate-50 rounded-lg px-3 py-2 text-xs"><span class="text-slate-400">成熟度：</span><span class="font-medium text-slate-700">${state.q3}级</span></div>
+        <div class="bg-slate-50 rounded-lg px-3 py-2 text-xs"><span class="text-slate-400">规模：</span><span class="font-medium text-slate-700">${state.q5 === '大'?'大型':state.q5==='中'?'中型':'小型'}</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">显性需求（客户自述）</div>
+      <div class="flex flex-wrap gap-1.5">
+        ${state.q4.map(k => `<span class="bg-indigo-50 text-indigo-600 rounded-full px-3 py-1 text-xs font-medium">${k}</span>`).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">隐性需求（建议深入沟通）</div>
+      <div class="space-y-1.5">
+        ${(HIDDEN_NEEDS_MAP[state.q1] || {}).q4_items ? '' : ''}
+        ${state.q4.filter(k => HIDDEN_NEEDS_MAP[state.q1]?.[k]).map(k => `
+          <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700">
+            <span class="font-semibold">${k}：</span>${HIDDEN_NEEDS_MAP[state.q1][k]}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">推荐产品</div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-2">
+        <div class="text-xs text-amber-500 font-semibold mb-1">⭐ 主推</div>
+        <div class="font-bold text-slate-800">${primary.name}</div>
+        <div class="text-xs text-slate-500 mt-0.5">${primary.desc}</div>
+      </div>
+      <div class="text-xs text-slate-500">搭配：${secondaryNames}</div>
+    </div>
+    <div>
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">破冰话术</div>
+      <div class="bg-slate-50 rounded-lg px-4 py-3 text-xs text-slate-600 leading-relaxed italic border-l-2 border-slate-300">
+        ${TALK_SCRIPTS[state.q1] || TALK_SCRIPTS['E']}
+      </div>
+    </div>
+  `;
+}
+
+// ==================== SAVE / RESET ====================
+function saveRecord() {
+  const records = JSON.parse(localStorage.getItem('insight_records') || '[]');
+  const record = {
+    id: Date.now(),
+    time: new Date().toLocaleString('zh-CN'),
+    q1: state.q1, q2: state.q2, q3: state.q3, q4: state.q4, q5: state.q5,
+    primary: PRODUCT_MAP[state.q1]?.primary || '',
+  };
+  records.unshift(record);
+  if (records.length > 20) records.splice(20);
+  localStorage.setItem('insight_records', JSON.stringify(records));
+  showToast('已保存到本地');
+  renderRecords();
+}
+
+function renderRecords() {
+  const records = JSON.parse(localStorage.getItem('insight_records') || '[]');
+  const section = document.getElementById('records-section');
+  const list = document.getElementById('records-list');
+  if (!records.length) { section.classList.add('hidden'); return; }
+  section.classList.remove('hidden');
+  list.innerHTML = records.map(r => {
+    const t = TYPE_INFO[r.q1]?.name || r.q1;
+    const p = PRODUCTS[r.primary]?.name || r.primary;
+    return `
+      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm">
+        <div>
+          <span class="font-medium text-slate-700">${t}</span>
+          <span class="text-slate-300 mx-2">·</span>
+          <span class="text-slate-500">${r.q2}</span>
+          <span class="text-slate-300 mx-2">·</span>
+          <span class="text-indigo-500">${p}</span>
+        </div>
+        <div class="text-xs text-slate-400">${r.time}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function resetAll() {
+  Object.assign(state, { q1: null, q2: null, q3: null, q4: [], q5: null });
+  document.querySelectorAll('.option-card, button').forEach(c => c.classList.remove('selected'));
+  document.getElementById('q2-market').classList.add('hidden');
+  document.getElementById('q3-tip').classList.add('hidden');
+  document.getElementById('step1-next').disabled = true;
+  goStep(1);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.style.display = 'flex';
+  setTimeout(() => { t.style.display = 'none'; }, 2500);
+}
+
+// ==================== INIT ====================
+initOptions();
+renderRecords();
+</script>
+</body>
+</html>
