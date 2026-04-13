@@ -1259,17 +1259,23 @@ function renderStep3() {
 function renderStep3F() {
   const rec = PRODUCT_MAP['F'];
 
-  // 隐藏普通产品推荐，显示F专属视图
-  document.getElementById('primary-product').innerHTML = '';
+  // 隐藏普通产品推荐区域
+  const primaryWrap = document.getElementById('primary-product').closest('.mb-6');
+  if (primaryWrap) primaryWrap.style.display = 'none';
+  const secondaryWrap = document.getElementById('secondary-products').closest('.mb-6');
+  if (secondaryWrap) secondaryWrap.style.display = 'none';
+  const vpSection = document.getElementById('value-props').closest('.bg-gradient-to-r');
+  if (vpSection) vpSection.style.display = 'none';
+  const talkSection = document.getElementById('talk-script').closest('.bg-white.rounded-xl');
+  if (talkSection) talkSection.style.display = 'none';
 
-  // 插入F专属视图容器（如果没有就创建）
+  // 插入F专属视图（在导航按钮之前）
   let fView = document.getElementById('f-state-view');
   if (!fView) {
-    const step3Container = document.querySelector('#step-3 .space-y-4');
     fView = document.createElement('div');
     fView.id = 'f-state-view';
-    fView.className = 'col-span-3';
-    step3Container.appendChild(fView);
+    const navBar = document.querySelector('#step3 .flex.items-center.justify-between');
+    navBar.parentNode.insertBefore(fView, navBar);
   }
 
   fView.innerHTML = `
@@ -1410,10 +1416,6 @@ function renderStep3F() {
     </div>
   `;
 
-  // 隐藏次级产品（国资平台不需要显示普通次级产品）
-  document.getElementById('secondary-products').innerHTML = '';
-  document.getElementById('value-props').innerHTML = '';
-  document.getElementById('talk-script').textContent = TALK_SCRIPTS['F'];
 }
 
 function selectFModel(model) {
