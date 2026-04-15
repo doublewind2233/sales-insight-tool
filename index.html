@@ -1257,7 +1257,6 @@ function renderStep3() {
 
 // ==================== 国资平台专属视图 ====================
 function renderStep3F() {
-  const rec = PRODUCT_MAP['F'];
 
   // 隐藏普通产品推荐区域
   const primaryWrap = document.getElementById('primary-product').closest('.mb-6');
@@ -1282,106 +1281,82 @@ function renderStep3F() {
     <div class="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-xl p-5 mb-4">
       <div class="flex items-center gap-2 mb-2">
         <span class="text-xl">🏛️</span>
-        <span class="font-bold text-indigo-800">国资平台 · 合作模式选择</span>
+        <span class="font-bold text-indigo-800">国资平台 · 产品方案</span>
       </div>
-      <p class="text-sm text-indigo-600">基于您的资源禀赋（发电资源+用电用户+政府背书），我们推荐以下两种启动路径：</p>
+      <p class="text-sm text-indigo-600">无论选择何种合作模式，最终落地均为统一售电平台产品，满足国资合规审计要求。</p>
     </div>
 
-    <!-- 方案对比 -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
-      <!-- 方案A -->
-      <div class="border-2 border-indigo-200 rounded-xl p-5 bg-white hover:shadow-md transition-shadow cursor-pointer" onclick="selectFModel('A')">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-lg">🚀</span>
-          <span class="font-bold text-slate-800 text-base">方案A：自营过渡</span>
-          <span class="ml-auto text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full font-semibold">推荐</span>
-        </div>
-        <div class="text-xs text-slate-500 mb-3">前期代运营 → 逐步自控 → 最终自主运营</div>
-        <div class="space-y-2 mb-4">
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600"><b>前期</b>：P-05代运营操盘，快速起量，P-02轻量定制版满足合规</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600"><b>中期</b>：自有交易员跟班学习，平台数据逐步迁移</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600"><b>后期</b>：完全自控，切换至P-01标准版，终身服务</span>
+    <!-- 平台演示 -->
+    <div class="bg-white rounded-xl border border-indigo-200 p-5 mb-4">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-lg">💻</span>
+        <span class="font-bold text-slate-800">平台演示</span>
+        <span class="ml-2 text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full">P-02 定制平台</span>
+      </div>
+      <div class="text-xs text-slate-500 mb-4">覆盖售电全链路：用户管理 · 合同套餐 · 申报结算 · 偏差预警 · 合规留痕</div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="border border-slate-200 rounded-lg p-3">
+          <div class="text-xs font-bold text-slate-700 mb-1">🎯 核心功能</div>
+          <div class="text-xs text-slate-500 space-y-0.5">
+            <div>• 96点曲线申报</div>
+            <div>• 多省规则引擎</div>
+            <div>• 自动化结算</div>
+            <div>• 全链路合规留痕</div>
           </div>
         </div>
-        <div class="border-t border-slate-100 pt-3">
-          <div class="text-xs text-slate-400 mb-1">适合场景</div>
-          <div class="text-xs text-slate-600">有资源、想建立自己的交易能力、对平台有长期规划</div>
+        <div class="border border-slate-200 rounded-lg p-3">
+          <div class="text-xs font-bold text-slate-700 mb-1">⚙️ 合作模式</div>
+          <div class="text-xs text-slate-500 space-y-0.5">
+            <div>• 前期：P-05代运营</div>
+            <div>• 中期：P-02定制版</div>
+            <div>• 后期：P-01标准版</div>
+            <div>• 全程一套平台</div>
+          </div>
         </div>
       </div>
-
-      <!-- 方案B -->
-      <div class="border-2 border-slate-200 rounded-xl p-5 bg-white hover:shadow-md transition-shadow cursor-pointer" onclick="selectFModel('B')">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-lg">💤</span>
-          <span class="font-bold text-slate-800 text-base">方案B：全托模式</span>
-          <span class="ml-auto text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-semibold">省心</span>
-        </div>
-        <div class="text-xs text-slate-500 mb-3">牌照+代运营，零操心，纯收益分成</div>
-        <div class="space-y-2 mb-4">
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600"><b>P-05</b>全托代运营，交易、申报、偏差管控全包</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600"><b>P-02</b>轻量定制版满足合规展示，数据透明可查</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-green-500 flex-shrink-0 mt-0.5">✓</span>
-            <span class="text-xs text-slate-600">实时收益报表，零介入，每月经审计可查</span>
-          </div>
-        </div>
-        <div class="border-t border-slate-100 pt-3">
-          <div class="text-xs text-slate-400 mb-1">适合场景</div>
-          <div class="text-xs text-slate-600">资源充沛、想快速拿收益、暂无交易团队建设计划</div>
-        </div>
+      <div class="flex gap-3">
+        <button onclick="openDemo('P-02')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-colors">
+          🚀 查看 P-02 平台演示
+        </button>
+        <button onclick="openP04Demo()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-colors">
+          📊 P-04 电价预测 Demo
+        </button>
       </div>
     </div>
 
-    <!-- 方案详情展开区 -->
-    <div id="f-model-detail" class="bg-white border border-slate-200 rounded-xl p-5 mb-4" style="display:none;"></div>
-
-    <!-- 核心痛点 -->
+    <!-- 常见顾虑 -->
     <div class="bg-white rounded-xl border border-slate-200 p-5 mb-4">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-base">🎯</span>
-        <span class="font-bold text-slate-700 text-sm">您最关心的问题</span>
+        <span class="font-bold text-slate-700 text-sm">常见顾虑</span>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div class="flex items-start gap-2 p-3 bg-red-50 border border-red-100 rounded-lg">
           <span class="text-base flex-shrink-0">😰</span>
           <div>
             <div class="text-xs font-bold text-slate-700">没有交易团队</div>
-            <div class="text-xs text-slate-500 mt-0.5">不知道从哪下手，P-05代运营可填补前期空白</div>
+            <div class="text-xs text-slate-500 mt-0.5">P-05代运营填补前期空白</div>
           </div>
         </div>
         <div class="flex items-start gap-2 p-3 bg-amber-50 border border-amber-100 rounded-lg">
           <span class="text-base flex-shrink-0">⚖️</span>
           <div>
-            <div class="text-xs font-bold text-slate-700">合规边界不清</div>
-            <div class="text-xs text-slate-500 mt-0.5">国资背景审计严格，P-02满足合规全链路留痕</div>
+            <div class="text-xs font-bold text-slate-700">合规审计严格</div>
+            <div class="text-xs text-slate-500 mt-0.5">全链路留痕，数据可查</div>
           </div>
         </div>
         <div class="flex items-start gap-2 p-3 bg-purple-50 border border-purple-100 rounded-lg">
           <span class="text-base flex-shrink-0">📋</span>
           <div>
-            <div class="text-xs font-bold text-slate-700">签约易，运营难</div>
-            <div class="text-xs text-slate-500 mt-0.5">签约完成只是开始，P-02+P-05覆盖全生命周期</div>
+            <div class="text-xs font-bold text-slate-700">签约易、运营难</div>
+            <div class="text-xs text-slate-500 mt-0.5">平台+运营一体化服务</div>
           </div>
         </div>
         <div class="flex items-start gap-2 p-3 bg-blue-50 border border-blue-100 rounded-lg">
           <span class="text-base flex-shrink-0">⏱️</span>
           <div>
             <div class="text-xs font-bold text-slate-700">上线周期长</div>
-            <div class="text-xs text-slate-500 mt-0.5">P-02轻量版4-6周可上线，合规流程同步启动</div>
+            <div class="text-xs text-slate-500 mt-0.5">4-6周可上线</div>
           </div>
         </div>
       </div>
@@ -1391,18 +1366,18 @@ function renderStep3F() {
     <div class="bg-white rounded-xl border border-slate-200 p-5">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-base">📦</span>
-        <span class="font-bold text-slate-700 text-sm">推荐产品组合</span>
+        <span class="font-bold text-slate-700 text-sm">推荐产品</span>
       </div>
       <div class="grid grid-cols-3 gap-3 mb-3">
         <div class="border border-indigo-200 bg-indigo-50 rounded-lg p-3 text-center">
           <div class="text-xs font-bold text-indigo-700 mb-1">P-02</div>
-          <div class="text-xs text-indigo-600">轻量定制版</div>
-          <div class="text-xs text-indigo-400 mt-1">合规平台·基础</div>
+          <div class="text-xs text-indigo-600">定制平台</div>
+          <div class="text-xs text-indigo-400 mt-1">核心产品</div>
         </div>
         <div class="border border-slate-200 bg-white rounded-lg p-3 text-center">
           <div class="text-xs font-bold text-slate-700 mb-1">P-05</div>
-          <div class="text-xs text-slate-600">代理交易服务</div>
-          <div class="text-xs text-slate-400 mt-1">代运营·可选</div>
+          <div class="text-xs text-slate-600">代运营</div>
+          <div class="text-xs text-slate-400 mt-1">前期可选</div>
         </div>
         <div class="border border-slate-200 bg-white rounded-lg p-3 text-center">
           <div class="text-xs font-bold text-slate-700 mb-1">P-01</div>
@@ -1411,88 +1386,11 @@ function renderStep3F() {
         </div>
       </div>
       <div class="text-xs text-slate-500 bg-slate-50 rounded-lg p-3">
-        <b>一句话总结：</b>P-02满足合规起量，P-05填补前期团队空白，平台全生命周期服务，无需中途换系统。
+        <b>平台说明：</b>两种合作模式均使用同一套平台产品，区别仅在于前期运营主体由我方或双方共同承担。
       </div>
     </div>
   `;
 
-}
-
-function selectFModel(model) {
-  const detail = document.getElementById('f-model-detail');
-  detail.style.display = 'block';
-  if (model === 'A') {
-    detail.innerHTML = `
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-lg">🚀</span>
-        <span class="font-bold text-slate-800">方案A · 自营过渡 · 详细说明</span>
-      </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div class="bg-indigo-50 rounded-lg p-3">
-          <div class="text-xs font-bold text-indigo-700 mb-2">阶段一：快速启动（0-6个月）</div>
-          <div class="text-xs text-slate-600 space-y-1">
-            <div>• P-02轻量定制版部署上线</div>
-            <div>• P-05代运营团队入场操盘</div>
-            <div>• 签约目标：30-50家电力用户</div>
-            <div>• 月签约电量≥5000MWh起量</div>
-          </div>
-        </div>
-        <div class="bg-purple-50 rounded-lg p-3">
-          <div class="text-xs font-bold text-purple-700 mb-2">阶段二：能力建设（6-18个月）</div>
-          <div class="text-xs text-slate-600 space-y-1">
-            <div>• 自有交易员跟班实操学习</div>
-            <div>• 平台数据、用户档案逐步迁移</div>
-            <div>• 交易策略文档化、流程标准化</div>
-            <div>• 偏差率目标：月均≤5%</div>
-          </div>
-        </div>
-        <div class="bg-emerald-50 rounded-lg p-3">
-          <div class="text-xs font-bold text-emerald-700 mb-2">阶段三：完全自控（18个月+）</div>
-          <div class="text-xs text-slate-600 space-y-1">
-            <div>• 自有交易员独立操盘</div>
-            <div>• P-05退出，P-01标准版接替</div>
-            <div>• 平台完全自主，数据不出门</div>
-            <div>• 长期技术支持协议兜底</div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-        <div class="text-xs text-amber-700"><b>销售话术：</b>你们现在最担心的不是技术，是合规和团队。方案A帮你们用代运营快速跑起来，同时逐步建立自己的能力——这样即便我们退出，你们也能自主运转。数据全透明，随时可查，没有黑箱。</div>
-      </div>
-    `;
-  } else {
-    detail.innerHTML = `
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-lg">💤</span>
-        <span class="font-bold text-slate-800">方案B · 全托模式 · 详细说明</span>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <div class="text-xs font-bold text-slate-700 mb-2">服务内容</div>
-          <div class="space-y-1.5">
-            <div class="flex items-start gap-2"><span class="text-green-500 flex-shrink-0">✓</span><span class="text-xs text-slate-600">D-1日96点曲线预测+申报全流程</span></div>
-            <div class="flex items-start gap-2"><span class="text-green-500 flex-shrink-0">✓</span><span class="text-xs text-slate-600">偏差管控+结算对账全托管</span></div>
-            <div class="flex items-start gap-2"><span class="text-green-500 flex-shrink-0">✓</span><span class="text-xs text-slate-600">用户管理+合同存档+合规留痕</span></div>
-            <div class="flex items-start gap-2"><span class="text-green-500 flex-shrink-0">✓</span><span class="text-xs text-slate-600">月度收益报表实时可查可审计</span></div>
-            <div class="flex items-start gap-2"><span class="text-green-500 flex-shrink-0">✓</span><span class="text-xs text-slate-600">P-02平台数据全透明，无黑箱</span></div>
-          </div>
-        </div>
-        <div>
-          <div class="text-xs font-bold text-slate-700 mb-2">合作保障</div>
-          <div class="space-y-1.5">
-            <div class="flex items-start gap-2"><span class="text-blue-500 flex-shrink-0">🔒</span><span class="text-xs text-slate-600">平台数据归属客户，可随时审计</span></div>
-            <div class="flex items-start gap-2"><span class="text-blue-500 flex-shrink-0">📊</span><span class="text-xs text-slate-600">收益报表按月出具，附偏差归因</span></div>
-            <div class="flex items-start gap-2"><span class="text-blue-500 flex-shrink-0">🚨</span><span class="text-xs text-slate-600">异常情况48小时内预警通知</span></div>
-            <div class="flex items-start gap-2"><span class="text-blue-500 flex-shrink-0">📋</span><span class="text-xs text-slate-600">合规文档全链路留存，满足国资审计</span></div>
-            <div class="flex items-start gap-2"><span class="text-blue-500 flex-shrink-0">🔄</span><span class="text-xs text-slate-600">随时可申请切换方案A（自营过渡）</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-        <div class="text-xs text-amber-700"><b>销售话术：</b>你们不需要担心团队问题——P-05帮你们把交易全包了，P-02满足合规要求，数据全透明，每月报表直接给领导看。什么时候想自控了，提前30天通知我们，随时可以切换到方案A，不需要重新部署系统。</div>
-      </div>
-    `;
-  }
 }
 
 // ==================== DEMO 弹窗 ====================
