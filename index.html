@@ -59,7 +59,7 @@
 </header>
 
 <!-- Progress Bar -->
-<div class="no-print bg-white border-b border-slate-100">
+<div class="no-print bg-white border-b border-slate-100" id="progress-bar-wrapper" style="display:none">
   <div class="max-w-5xl mx-auto px-6 py-3">
     <div class="flex items-center justify-between mb-2">
       <span class="text-xs font-medium text-slate-500" id="step-label">第 1 步 / 共 4 步</span>
@@ -80,8 +80,124 @@
 <!-- Main -->
 <main class="max-w-5xl mx-auto px-6 py-8">
 
+  <!-- ======= STEP 0: 首页双卡片 ======= -->
+  <div class="step-content active" id="step0">
+    <div class="text-center mb-10 mt-4">
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">欢迎使用电力交易洞察矩阵</h2>
+      <p class="text-sm text-slate-500">选择你现在需要的功能，开始你的演示或预诊流程</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <!-- 产品演示卡片 -->
+      <div onclick="goToDemoPage()" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-indigo-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+        <div class="w-16 h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100 flex items-center justify-center mb-5 transition-colors">
+          <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">产品演示</h3>
+        <p class="text-sm text-slate-500 mb-5">快速展示各产品实际界面<br>适合已知客户需求的场景</p>
+        <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">3 个演示可用 →</span>
+      </div>
+      <!-- 需求定位卡片 -->
+      <div onclick="goToStep(1)" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-emerald-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center mb-5 transition-colors">
+          <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-800 mb-2">需求定位</h3>
+        <p class="text-sm text-slate-500 mb-5">五问定位客户需求画像<br>精准匹配产品推荐方案</p>
+        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">5 分钟完成 →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= STEP DEMO: 产品演示列表 ======= -->
+  <div class="step-content" id="step-demo">
+    <div class="flex items-center gap-3 mb-6">
+      <button onclick="goToStep(0)" class="flex items-center gap-1.5 text-sm text-slate-500 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        返回首页
+      </button>
+      <span class="text-slate-300">|</span>
+      <h2 class="text-lg font-bold text-slate-800">产品演示</h2>
+    </div>
+    <p class="text-sm text-slate-400 mb-8">点击任意产品即可在新窗口打开演示，账号信息附在下方</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <!-- Demo 1: 售电平台 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 px-5 py-6 text-white">
+          <div class="text-2xl mb-2">🏪</div>
+          <h3 class="font-bold text-base">售电平台 Demo</h3>
+          <p class="text-xs text-indigo-200 mt-1">P-01 / P-02 标准化售电平台</p>
+        </div>
+        <div class="p-5">
+          <div class="space-y-1.5 mb-5">
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>中长期申报 / 用户管理</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>偏差管控 / 结算对账</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>零售套餐 / 合同管理</div>
+          </div>
+          <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4 space-y-1">
+            <div>账号：<span class="font-mono text-slate-600">jiangsudemo</span></div>
+            <div>密码：<span class="font-mono text-slate-600">Bangdao2026@</span></div>
+          </div>
+          <a href="https://app.jscoder.com/easyprd/1775111703/index.html" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+            🚀 打开演示
+          </a>
+        </div>
+      </div>
+
+      <!-- Demo 2: 电价预测 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 px-5 py-6 text-white">
+          <div class="text-2xl mb-2">📊</div>
+          <h3 class="font-bold text-base">电价预测 Demo</h3>
+          <p class="text-xs text-emerald-200 mt-1">P-04 轻量BI电价预测工具</p>
+        </div>
+        <div class="p-5">
+          <div class="space-y-1.5 mb-5">
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>96点电价曲线预测</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>负荷预测 / 偏差分析</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>预警通知 / 套利检测</div>
+          </div>
+          <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4">
+            <div>内嵌Demo，无需账号</div>
+          </div>
+          <button onclick="showP04DemoView()" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors cursor-pointer">
+            📈 打开演示
+          </button>
+        </div>
+      </div>
+
+      <!-- Demo 3: 发电侧 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+        <div class="bg-gradient-to-br from-amber-500 to-orange-600 px-5 py-6 text-white">
+          <div class="text-2xl mb-2">⚡</div>
+          <h3 class="font-bold text-base">发电侧辅助交易 Demo</h3>
+          <p class="text-xs text-amber-200 mt-1">江苏发电侧辅助交易系统</p>
+        </div>
+        <div class="p-5">
+          <div class="space-y-1.5 mb-5">
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>市场数据 / 边界条件管理</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>发电侧申报辅助</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>交易策略 / 收益分析</div>
+          </div>
+          <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4">
+            <div>直接访问，无需登录</div>
+          </div>
+          <a href="https://app.jscoder.com/easyprd/1776327388/index.html#/market-data/boundary-conditions" target="_blank" class="block w-full text-center bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+            ⚡ 打开演示
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部提示 -->
+    <div class="mt-8 p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-start gap-3">
+      <svg class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <p class="text-xs text-slate-500">演示账号仅供销售使用，请勿外传。如需了解客户适配方案，可返回首页使用<button onclick="goToStep(1)" class="text-indigo-500 hover:underline font-medium mx-0.5">需求定位</button>功能。</p>
+    </div>
+  </div>
+
   <!-- ======= STEP 1: 画像预诊 ======= -->
-  <div class="step-content active" id="step1">
+  <div class="step-content" id="step1">
     <div class="mb-6">
       <h2 class="text-xl font-bold text-slate-800 mb-1">客户画像预诊</h2>
       <p class="text-sm text-slate-500">回答以下5个问题，5分钟内摸清客户全貌</p>
@@ -122,20 +238,20 @@
           <div class="text-xs text-slate-400 mt-1">政策/投资</div>
         </div>
       </div>
-      <!-- 发电侧（预留，暂不可选） -->
-      <div class="text-xs text-slate-500 mb-3 font-medium">⬆️ 发电侧 <span class="text-amber-500 text-xs">（Demo开发中）</span></div>
-      <div class="grid grid-cols-3 gap-3 opacity-60">
-        <div class="border-2 border-slate-200 rounded-xl p-4 bg-slate-50 text-center cursor-not-allowed" title="发电侧工商业 Demo 开发中">
-          <div class="text-2xl mb-2">🏭‍</div>
-          <div class="font-semibold text-slate-600 text-sm">发电侧工商业</div>
-          <div class="text-xs text-slate-400 mt-1">G类 · 敬请期待</div>
+      <!-- 发电侧 -->
+      <div class="text-xs text-slate-500 mb-3 font-medium">⬆️ 发电侧</div>
+      <div class="grid grid-cols-3 gap-3" data-question="q1">
+        <div class="option-card border-2 border-slate-200 rounded-xl p-4 bg-white text-center" data-value="G">
+          <div class="text-2xl mb-2">🏭</div>
+          <div class="font-semibold text-slate-800 text-sm">发电侧工商业</div>
+          <div class="text-xs text-slate-400 mt-1">G类 · 有自备电厂/余热发电</div>
         </div>
-        <div class="border-2 border-slate-200 rounded-xl p-4 bg-slate-50 text-center cursor-not-allowed" title="新能源发电 Demo 开发中">
+        <div class="border-2 border-slate-200 rounded-xl p-4 bg-slate-50 text-center cursor-not-allowed opacity-50" title="新能源发电 Demo 开发中">
           <div class="text-2xl mb-2">🌪️</div>
           <div class="font-semibold text-slate-600 text-sm">新能源（风电/光伏）</div>
           <div class="text-xs text-slate-400 mt-1">H类 · 敬请期待</div>
         </div>
-        <div class="border-2 border-slate-200 rounded-xl p-4 bg-slate-50 text-center cursor-not-allowed" title="电网调度 Demo 开发中">
+        <div class="border-2 border-slate-200 rounded-xl p-4 bg-slate-50 text-center cursor-not-allowed opacity-50" title="电网调度 Demo 开发中">
           <div class="text-2xl mb-2">🔌</div>
           <div class="font-semibold text-slate-600 text-sm">电网/调度机构</div>
           <div class="text-xs text-slate-400 mt-1">I类 · 敬请期待</div>
@@ -946,6 +1062,17 @@ const HIDDEN_NEEDS_MAP = {
     '开始': '市场准入评估 — 你们所在省份入场门槛是什么？资质够吗？',
     '政策': '政策时效性评估 — 现在政策窗口什么时候收？越晚入场越被动',
   },
+  // 发电侧客户类型
+  'G': {
+    '申报': '余电上网申报策略 — 自备电厂余电上网，96点曲线怎么报才能收益最大化？',
+    '预测': '超短期功率预测 — 你们自备电厂的发电曲线能精准预测吗？偏差多少？',
+    '结算': '发电收益归因分析 — 每个月电费结算，你能说清楚收益来自哪块吗？',
+    '数据': '发电数据采集 — 现有SCADA系统能对接电力交易平台吗？数据频率够不够？',
+    '成本': '发电成本精细化核算 — 煤耗、热耗、度电成本有没有分时段核算过？',
+    '用户': '自用vs外销比例优化 — 自用电和外销电的比例，是拍脑袋还是数据驱动？',
+    '开始': '电力市场准入评估 — 你们省的自备电厂进入电力市场需要哪些资质？',
+    '政策': '现货市场衔接准备 — 你们省的现货市场进展如何？准备好应对价格波动了吗？',
+  },
 };
 
 const PRODUCT_MAP = {
@@ -994,19 +1121,42 @@ startTimer();
 function goStep(n) {
   document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
   document.getElementById(`step${n}`).classList.add('active');
-  const dots = document.querySelectorAll('.step-dot');
-  dots.forEach((d, i) => {
-    d.classList.remove('active', 'done');
-    if (i+1 < n) d.classList.add('done');
-    if (i+1 === n) d.classList.add('active');
-  });
-  document.getElementById('progress-bar').style.width = `${n*25}%`;
-  document.getElementById('step-label').textContent = `第 ${n} 步 / 共 4 步`;
-  const titles = ['客户画像', '画像分析', '产品推荐', '沟通摘要'];
-  document.getElementById('step-title').textContent = titles[n-1];
+  const wrapper = document.getElementById('progress-bar-wrapper');
+  // 步骤1-4才显示进度条
+  wrapper.style.display = (n >= 1 && n <= 4) ? '' : 'none';
+  if (n >= 1 && n <= 4) {
+    const dots = document.querySelectorAll('.step-dot');
+    dots.forEach((d, i) => {
+      d.classList.remove('active', 'done');
+      if (i+1 < n) d.classList.add('done');
+      if (i+1 === n) d.classList.add('active');
+    });
+    document.getElementById('progress-bar').style.width = `${n*25}%`;
+    document.getElementById('step-label').textContent = `第 ${n} 步 / 共 4 步`;
+    const titles = ['客户画像', '画像分析', '产品推荐', '沟通摘要'];
+    document.getElementById('step-title').textContent = titles[n-1];
+  }
   if (n === 2) renderStep2();
   if (n === 3) renderStep3();
   if (n === 4) renderStep4();
+}
+
+// 进入首页（step0）
+function goToStep(n) {
+  if (n === 0) {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('step0').classList.add('active');
+    document.getElementById('progress-bar-wrapper').style.display = 'none';
+  } else {
+    goStep(n);
+  }
+}
+
+// 进入产品演示页
+function goToDemoPage() {
+  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('step-demo').classList.add('active');
+  document.getElementById('progress-bar-wrapper').style.display = 'none';
 }
 
 // ==================== OPTION SELECTION ====================
@@ -1190,6 +1340,12 @@ function renderStep3() {
     return;
   }
 
+  // 发电侧G类专属视图：直接展示发电侧Demo
+  if (state.q1 === 'G') {
+    renderStep3G();
+    return;
+  }
+
   const rec = PRODUCT_MAP[state.q1];
   const primary = PRODUCTS[rec.primary];
 
@@ -1253,6 +1409,98 @@ function renderStep3() {
   // Talk script
   const scriptMap = TALK_SCRIPTS[state.q1] || TALK_SCRIPTS['E'];
   document.getElementById('talk-script').textContent = scriptMap;
+}
+
+// ==================== 发电侧G类专属视图 ====================
+function renderStep3G() {
+  // 隐藏普通产品推荐区域
+  const primaryWrap = document.getElementById('primary-product').closest('.mb-6');
+  if (primaryWrap) primaryWrap.style.display = 'none';
+  const secondaryWrap = document.getElementById('secondary-products').closest('.mb-6');
+  if (secondaryWrap) secondaryWrap.style.display = 'none';
+  const valuePropsWrap = document.getElementById('value-props').closest('.bg-gradient-to-r');
+  if (valuePropsWrap) valuePropsWrap.style.display = 'none';
+  const talkScriptWrap = document.getElementById('talk-script').closest('.bg-white');
+  if (talkScriptWrap) talkScriptWrap.style.display = 'none';
+
+  // 插入G专属视图
+  let gView = document.getElementById('g-state-view');
+  if (!gView) {
+    gView = document.createElement('div');
+    gView.id = 'g-state-view';
+    const navBar = document.querySelector('#step3 .flex.items-center.justify-between');
+    navBar.parentNode.insertBefore(gView, navBar);
+  }
+
+  const t = TYPE_INFO['G'];
+  const pains = PAIN_POINTS['G'] || [];
+  const scriptMap = TALK_SCRIPTS['G'] || '';
+
+  gView.innerHTML = `
+    <!-- 发电侧专属产品推荐 -->
+    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 mb-4">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1 bg-amber-500 text-white rounded-full px-3 py-1 text-xs font-bold">⚡ 发电侧专项方案</span>
+      </div>
+      <h3 class="font-bold text-slate-800 text-lg mb-2">发电侧辅助交易平台</h3>
+      <p class="text-slate-600 text-sm mb-4">专为自备电厂/余热发电工业企业设计，覆盖市场数据管理、申报辅助、交易策略全链路</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+        <div class="bg-white rounded-lg p-3 text-center border border-amber-100">
+          <div class="text-2xl mb-1">📊</div>
+          <div class="text-xs font-semibold text-slate-700">市场数据</div>
+          <div class="text-xs text-slate-400">边界条件管理</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 text-center border border-amber-100">
+          <div class="text-2xl mb-1">📋</div>
+          <div class="text-xs font-semibold text-slate-700">申报辅助</div>
+          <div class="text-xs text-slate-400">96点曲线优化</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 text-center border border-amber-100">
+          <div class="text-2xl mb-1">💰</div>
+          <div class="text-xs font-semibold text-slate-700">收益分析</div>
+          <div class="text-xs text-slate-400">发电成本归因</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 text-center border border-amber-100">
+          <div class="text-2xl mb-1">🤖</div>
+          <div class="text-xs font-semibold text-slate-700">策略建议</div>
+          <div class="text-xs text-slate-400">智能交易决策</div>
+        </div>
+      </div>
+      <a href="https://app.jscoder.com/easyprd/1776327388/index.html#/market-data/boundary-conditions" target="_blank" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-sm">
+        ⚡ 打开发电侧 Demo
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+    </div>
+
+    <!-- 典型痛点 -->
+    <div class="bg-white rounded-xl border border-slate-200 p-5 mb-4">
+      <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-red-100 text-red-500 flex items-center justify-center text-sm font-bold">!</span>
+        该类型客户的典型痛点
+      </h3>
+      <div class="space-y-2">
+        ${pains.map(p => `
+          <div class="flex items-center gap-3 bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0"></span>${p}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 破冰话术 -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-4">
+      <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        破冰话术建议
+      </h3>
+      <div class="bg-slate-50 rounded-xl p-4 border-l-4 border-indigo-400">
+        <p class="text-slate-700 text-sm leading-relaxed">${scriptMap}</p>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700 mt-3">
+        💡 <strong>追问三板斧：</strong>① "背后是因为什么？" &nbsp;② "余电上网收益算过吗？" &nbsp;③ "自用电和外销比例是谁定的？"
+      </div>
+    </div>
+  `;
 }
 
 // ==================== 国资平台专属视图 ====================
@@ -1625,7 +1873,7 @@ function resetAll() {
   document.getElementById('q3-tip').style.display = 'none';
   document.getElementById('province-features').style.display = 'none';
   document.getElementById('step1-next').disabled = true;
-  goStep(1);
+  goToStep(0);
 }
 
 function showToast(msg) {
