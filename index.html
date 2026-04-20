@@ -1096,7 +1096,38 @@ const TALK_SCRIPTS = {
   'C': '你们现在最头疼的是什么？是想知道明天电价高低方便排产，还是想看看用电结构有没有优化空间？我们有一个轻量BI工具，链接就能用，不需要部署，可以先给你们试试看。',
   'D': '你们现在每个月居间费结算要多久？分润规则复杂吗？我们遇到很多居间商，月底核算居间费要花好几天，而且一旦规则调整就要重新手工算，容易出错也容易扯皮。我们有专门的居间管理模块，要不要了解一下？',
   'E': '你们现在最困惑的是什么？是不知道这个市场值不值得进，还是知道要进但不知道从哪开始？我们接触过很多和你们情况类似的企业，一般先从BI工具或者SaaS轻量版入手，零投入先用起来，有了数据支撑再做决策，会稳妥很多。',
-  'F': '你们现在是从零开始搭建售电业务，还是已经有一定的资源储备？国资平台做售电，核心痛点往往不是技术，是合规边界和团队。我们有两种合作模式——前期代运营帮你们快速跑起来，或者直接用平台自主运营，看你们更倾向哪种。',
+  'F': [
+    {
+      scene: '业务入门介绍',
+      icon: '📖',
+      script: '售电本质上是帮工业用户买电、帮发电厂卖电，我们平台做的是中间的数据和交易撮合。简单说，您厂子用了多少电，我们帮您去市场上找更划算的电量和报价。',
+      tip: '先建立共同语境，不讲术语'
+    },
+    {
+      scene: '自有电量摸底',
+      icon: '⚡',
+      script: '咱们平台上目前一年的工业用电量大概在什么量级？自有厂房和园区加起来，年用电量有没有几个亿度？',
+      tip: '判断规模，也暗示"用电量大才有议价空间"'
+    },
+    {
+      scene: '发电侧资源摸底',
+      icon: '🏭',
+      script: '咱们平台或者上级集团旗下有没有自备电厂或者余热发电装置？这类资源如果参与市场交易，收益会比固定上网价高不少。',
+      tip: '挖出"发电+售电"一体化资源，这是国资的核心优势'
+    },
+    {
+      scene: '现有业务认知',
+      icon: '🔍',
+      script: '现在售电这块，是已经开了牌照在跑，还是刚在规划阶段？团队是自建还是考虑引入外部运营？',
+      tip: '判断项目阶段，决定后面推代运营还是平台工具'
+    },
+    {
+      scene: '国资优势锚定',
+      icon: '💎',
+      script: '说实话，国资平台做售电有几个天然优势：一是手上可能有发电资源，二是资金实力能扛风险，三是政府关系天然有信任背书。很多民营售电公司羡慕不来的条件，只是还没找到合适的工具把这条路跑通。我们就是来解决后面这件事的。',
+      tip: '先夸客户，再自然过渡到"我们能帮什么"'
+    }
+  ],
   // 发电侧话术（新增）
   'G': '你们自备电厂现在发电量是怎么安排的？余电上网的价格和曲线怎么定？我们有专门针对自备电厂的现货申报辅助和成本优化工具，可以帮你们在保证自用电的前提下，最大化余电收益。',
   'H': '你们场站现在的弃风弃光率大概是多少？功率预测是用什么方法？新能源场站最大的损失往往不是设备问题，是预测不准导致的高价卖不出、低价卖不出。我们有专门的超短期功率预测工具，要不要看看能帮你们提升多少收益？',
@@ -1334,14 +1365,22 @@ const DEMO_CONFIG = {
 
 // ==================== RENDER STEP 3 ====================
 function renderStep3() {
-  // 国资平台专属视图：方案A vs 方案B
+  // 国资平台专属视图：完全接管Step3，不走普通渲染流程
   if (state.q1 === 'F') {
+    document.getElementById('primary-product').closest('.mb-6').style.display = 'none';
+    document.getElementById('secondary-products').closest('.mb-6').style.display = 'none';
+    document.getElementById('value-props').closest('.bg-gradient-to-r').style.display = 'none';
+    document.getElementById('talk-script').closest('.bg-white').style.display = 'none';
     renderStep3F();
     return;
   }
 
-  // 发电侧G类专属视图：直接展示发电侧Demo
+  // 发电侧G类专属视图：完全接管Step3
   if (state.q1 === 'G') {
+    document.getElementById('primary-product').closest('.mb-6').style.display = 'none';
+    document.getElementById('secondary-products').closest('.mb-6').style.display = 'none';
+    document.getElementById('value-props').closest('.bg-gradient-to-r').style.display = 'none';
+    document.getElementById('talk-script').closest('.bg-white').style.display = 'none';
     renderStep3G();
     return;
   }
@@ -1413,16 +1452,6 @@ function renderStep3() {
 
 // ==================== 发电侧G类专属视图 ====================
 function renderStep3G() {
-  // 隐藏普通产品推荐区域
-  const primaryWrap = document.getElementById('primary-product').closest('.mb-6');
-  if (primaryWrap) primaryWrap.style.display = 'none';
-  const secondaryWrap = document.getElementById('secondary-products').closest('.mb-6');
-  if (secondaryWrap) secondaryWrap.style.display = 'none';
-  const valuePropsWrap = document.getElementById('value-props').closest('.bg-gradient-to-r');
-  if (valuePropsWrap) valuePropsWrap.style.display = 'none';
-  const talkScriptWrap = document.getElementById('talk-script').closest('.bg-white');
-  if (talkScriptWrap) talkScriptWrap.style.display = 'none';
-
   // 插入G专属视图
   let gView = document.getElementById('g-state-view');
   if (!gView) {
@@ -1505,17 +1534,6 @@ function renderStep3G() {
 
 // ==================== 国资平台专属视图 ====================
 function renderStep3F() {
-
-  // 隐藏普通产品推荐区域
-  const primaryWrap = document.getElementById('primary-product').closest('.mb-6');
-  if (primaryWrap) primaryWrap.style.display = 'none';
-  const secondaryWrap = document.getElementById('secondary-products').closest('.mb-6');
-  if (secondaryWrap) secondaryWrap.style.display = 'none';
-  const vpSection = document.getElementById('value-props').closest('.bg-gradient-to-r');
-  if (vpSection) vpSection.style.display = 'none';
-  const talkSection = document.getElementById('talk-script').closest('.bg-white.rounded-xl');
-  if (talkSection) talkSection.style.display = 'none';
-
   // 插入F专属视图（在导航按钮之前）
   let fView = document.getElementById('f-state-view');
   if (!fView) {
@@ -1611,7 +1629,7 @@ function renderStep3F() {
     </div>
 
     <!-- 推荐产品组合 -->
-    <div class="bg-white rounded-xl border border-slate-200 p-5">
+    <div class="bg-white rounded-xl border border-slate-200 p-5 mb-4">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-base">📦</span>
         <span class="font-bold text-slate-700 text-sm">推荐产品</span>
@@ -1637,7 +1655,41 @@ function renderStep3F() {
         <b>平台说明：</b>两种合作模式均使用同一套平台产品，区别仅在于前期运营主体由我方或双方共同承担。
       </div>
     </div>
+
+    <!-- 破冰话术 -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 mb-4">
+      <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        破冰话术 · 国资平台五步法
+      </h3>
+      <div class="space-y-2" id="f-talk-scripts"></div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700 mt-3">
+        💡 <strong>追问三板斧：</strong>① "自有厂区年用电量大概多少？" &nbsp;② "集团下面有没有参股或控股的电厂？" &nbsp;③ "售电牌照办了吗？团队现在有几个人在管？"
+      </div>
+    </div>
   `;
+
+  // 渲染F类话术卡片
+  setTimeout(() => {
+    const scripts = TALK_SCRIPTS['F'] || [];
+    const container = document.getElementById('f-talk-scripts');
+    if (!container || !scripts.length) return;
+    container.innerHTML = scripts.map((s, i) => `
+      <div class="border border-slate-200 rounded-xl overflow-hidden">
+        <button onclick="document.getElementById('f-script-detail-${i}').classList.toggle('hidden')" class="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 transition-colors">
+          <span class="text-xl flex-shrink-0">${s.icon}</span>
+          <span class="text-xs font-semibold text-slate-700 flex-1">${s.scene}</span>
+          <span class="text-xs text-slate-400">点击展开</span>
+        </button>
+        <div id="f-script-detail-${i}" class="hidden px-4 pb-4">
+          <div class="bg-slate-50 rounded-lg p-3 border-l-4 border-indigo-400 mb-2">
+            <p class="text-slate-700 text-sm leading-relaxed">${s.script}</p>
+          </div>
+          <p class="text-xs text-slate-400">💡 ${s.tip}</p>
+        </div>
+      </div>
+    `).join('');
+  }, 0);
 
 }
 
@@ -1820,7 +1872,11 @@ function renderStep4() {
     <div>
       <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">破冰话术</div>
       <div class="bg-slate-50 rounded-lg px-4 py-3 text-xs text-slate-600 leading-relaxed italic border-l-2 border-slate-300">
-        ${TALK_SCRIPTS[state.q1] || TALK_SCRIPTS['E']}
+        ${(() => {
+          const raw = TALK_SCRIPTS[state.q1] || TALK_SCRIPTS['E'];
+          if (Array.isArray(raw)) return raw.map(s => s.script).join('\n　• ');
+          return raw;
+        })()}
       </div>
     </div>
   `;
