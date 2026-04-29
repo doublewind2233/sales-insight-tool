@@ -35,6 +35,36 @@
     .demo-tab { color: #64748b; background: #f8fafc; transition: all 0.15s; }
     .demo-tab:hover { background: #f1f5f9; }
     .demo-tab.active { background: #4f8ef7; color: white; }
+    
+    /* 确保卡片绝对可点击 */
+    #demo-card, #step-card {
+      position: relative !important;
+      z-index: 9999 !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+    }
+    
+    /* 防止任何覆盖层 */
+    #demo-card::before, #step-card::before,
+    #demo-card::after, #step-card::after {
+      display: none !important;
+    }
+    
+    /* 覆盖所有可能阻止点击的样式 */
+    #demo-card *, #step-card * {
+      pointer-events: auto !important;
+    }
+    
+    /* 确保点击区域完整 */
+    #demo-card a, #step-card a,
+    #demo-card button, #step-card button,
+    #demo-card svg, #step-card svg,
+    #demo-card span, #step-card span,
+    #demo-card div, #step-card div,
+    #demo-card h3, #step-card h3,
+    #demo-card p, #step-card p {
+      pointer-events: none !important;
+    }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -88,7 +118,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
       <!-- 产品演示卡片 -->
-      <div onclick="goToDemoPage()" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-indigo-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+      <div id="demo-card" onclick="goToDemoPage()" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-indigo-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
         <div class="w-16 h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100 flex items-center justify-center mb-5 transition-colors">
           <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
@@ -97,7 +127,7 @@
         <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">3 个演示可用 →</span>
       </div>
       <!-- 需求定位卡片 -->
-      <div onclick="goToStep(1)" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-emerald-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+      <div id="step-card" onclick="goToStep(1)" class="group cursor-pointer bg-white border-2 border-slate-200 hover:border-emerald-400 rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
         <div class="w-16 h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center mb-5 transition-colors">
           <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         </div>
@@ -120,15 +150,15 @@
     </div>
     <p class="text-sm text-slate-400 mb-8">点击任意产品即可在新窗口打开演示，账号信息附在下方</p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      <!-- Demo 1: 售电平台 -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 items-stretch">
+      <!-- 卡片1: 售电平台 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow flex flex-col">
         <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 px-5 py-6 text-white">
           <div class="text-2xl mb-2">🏪</div>
-          <h3 class="font-bold text-base">售电平台 Demo</h3>
-          <p class="text-xs text-indigo-200 mt-1">P-01 / P-02 标准化售电平台</p>
+          <h3 class="font-bold text-base">售电侧辅助交易</h3>
+          <p class="text-xs text-indigo-200 mt-1">售电侧辅助交易管理平台</p>
         </div>
-        <div class="p-5">
+        <div class="p-5 flex flex-col flex-1">
           <div class="space-y-1.5 mb-5">
             <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>中长期申报 / 用户管理</div>
             <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>偏差管控 / 结算对账</div>
@@ -138,42 +168,22 @@
             <div>账号：<span class="font-mono text-slate-600">jiangsudemo</span></div>
             <div>密码：<span class="font-mono text-slate-600">Bangdao2026@</span></div>
           </div>
-          <a href="https://app.jscoder.com/easyprd/1775111703/index.html" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
-            🚀 打开演示
-          </a>
+          <div class="mt-auto">
+            <a href="https://app.jscoder.com/easyprd/1775111703/index.html" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+              打开查看
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Demo 2: 电价预测 -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
-        <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 px-5 py-6 text-white">
-          <div class="text-2xl mb-2">📊</div>
-          <h3 class="font-bold text-base">电价预测 Demo</h3>
-          <p class="text-xs text-emerald-200 mt-1">P-04 轻量BI电价预测工具</p>
-        </div>
-        <div class="p-5">
-          <div class="space-y-1.5 mb-5">
-            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>96点电价曲线预测</div>
-            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>负荷预测 / 偏差分析</div>
-            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>预警通知 / 套利检测</div>
-          </div>
-          <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4">
-            <div>内嵌Demo，无需账号</div>
-          </div>
-          <button onclick="showP04DemoView()" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors cursor-pointer">
-            📈 打开演示
-          </button>
-        </div>
-      </div>
-
-      <!-- Demo 3: 发电侧 -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+      <!-- 卡片2: 发电侧辅助交易 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow flex flex-col">
         <div class="bg-gradient-to-br from-amber-500 to-orange-600 px-5 py-6 text-white">
           <div class="text-2xl mb-2">⚡</div>
-          <h3 class="font-bold text-base">发电侧辅助交易 Demo</h3>
-          <p class="text-xs text-amber-200 mt-1">江苏发电侧辅助交易系统</p>
+          <h3 class="font-bold text-base">发电侧辅助交易管理平台</h3>
+          <p class="text-xs text-amber-200 mt-1">发电侧辅助交易管理平台</p>
         </div>
-        <div class="p-5">
+        <div class="p-5 flex flex-col flex-1">
           <div class="space-y-1.5 mb-5">
             <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>市场数据 / 边界条件管理</div>
             <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>发电侧申报辅助</div>
@@ -182,11 +192,41 @@
           <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4">
             <div>直接访问，无需登录</div>
           </div>
-          <a href="https://app.jscoder.com/easyprd/1776327388/index.html#/market-data/boundary-conditions" target="_blank" class="block w-full text-center bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
-            ⚡ 打开演示
-          </a>
+          <div class="mt-auto">
+            <a href="https://app.jscoder.com/easyprd/1776327388/index.html#/market-data/boundary-conditions" target="_blank" class="block w-full text-center bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+              打开查看
+            </a>
+          </div>
         </div>
       </div>
+
+      <!-- 卡片3: 数据工坊 -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 px-5 py-6 text-white">
+          <div class="text-2xl mb-2">📈</div>
+          <h3 class="font-bold text-base">数据工坊</h3>
+          <p class="text-xs text-blue-200 mt-1">数据工坊、预测、复盘 - 月内交易BI</p>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="space-y-1.5 mb-5">
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>数据工坊市场情报</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>价格预测置信区间</div>
+            <div class="flex items-center gap-2 text-xs text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>偏差考核罚款模拟</div>
+          </div>
+          <div class="text-xs text-slate-400 bg-slate-50 rounded-lg p-3 mb-4">
+            <div>内嵌页面，无需账号</div>
+          </div>
+          <div class="mt-auto">
+            <button onclick="window.open('../../20260417140239/bi-dashboard.html', '_blank')" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors cursor-pointer">
+              打开查看
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
     </div>
 
     <!-- 底部提示 -->
@@ -589,11 +629,11 @@
         <span class="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center text-white text-xs">📊</span>
         <div>
           <div class="text-sm font-bold text-slate-800">轻量BI · 电价预测工具</div>
-          <div class="text-xs text-slate-400">P-04 产品演示 · SmartPower BI</div>
+          <div class="text-xs text-slate-400">电价预测演示 · SmartPower BI</div>
         </div>
       </div>
       <div class="ml-auto flex items-center gap-3">
-        <span class="text-xs text-slate-400">📅 2026年4月11日 · 江苏</span>
+        <span class="text-xs text-slate-400">📅 2026年4月11日 · 示例省份</span>
         <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-semibold">模型 V2.3 运行中</span>
       </div>
     </div>
@@ -747,7 +787,7 @@
     <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-5 py-3 flex items-center gap-4">
       <div class="text-indigo-500 text-lg">💡</div>
       <div>
-        <div class="text-sm font-bold text-indigo-700">这是 P-04「轻量BI电价预测工具」的产品演示</div>
+        <div class="text-sm font-bold text-indigo-700">这是「轻量BI电价预测工具」的产品演示</div>
         <div class="text-xs text-indigo-500 mt-0.5">96点日前电价预测 · 负荷曲线分析 · 偏差预警 · 智能报告生成 · 全流程覆盖</div>
       </div>
       <div class="ml-auto flex gap-2">
@@ -769,7 +809,7 @@
           </div>
           <div>
             <h3 class="text-white font-bold" id="demo-product-name">产品演示</h3>
-            <p class="text-white/70 text-sm" id="demo-region">江苏</p>
+            <p class="text-white/70 text-sm" id="demo-region">示例省份</p>
           </div>
         </div>
         <button onclick="closeDemo()" class="text-white/70 hover:text-white transition-colors">
@@ -813,28 +853,28 @@
 // ==================== DATA ====================
 const PRODUCTS = {
   'P-01': {
-    name: '标准化售电平台', tag: '买断部署',
+    name: '售电侧辅助交易管理平台（标准化版）', tag: '买断部署',
     desc: '开箱即用的全功能售电管理平台，覆盖主流省份通用场景',
     features: ['合同管理 / 申报辅助 / 结算核查', '私有化部署 + 年度运维', '交付周期约4周'],
     color: 'bg-blue-500', tagColor: 'bg-blue-100 text-blue-700'
   },
   'P-02': {
-    name: '定制化售电平台', tag: '项目交付',
+    name: '售电侧辅助交易管理平台（定制化版）', tag: '项目交付',
     desc: '深度贴合客户个性化业务逻辑，多省统一管理，复杂结算体系',
     features: ['多省差异化规则引擎', 'AI交易策略中心', '与ERP/财务系统深度集成', '项目制交付'],
     color: 'bg-purple-500', tagColor: 'bg-purple-100 text-purple-700'
   },
   'P-03': {
-    name: 'SaaS化售电平台', tag: '订阅制',
+    name: '售电侧辅助交易管理平台（SaaS版）', tag: '订阅制',
     desc: '云端订阅，无需采购服务器，注册即用，最快1天上线',
     features: ['按月/年付费，零硬件投入', '无需运维，规则变化自动适配', '数据隔离，多租户安全'],
     color: 'bg-teal-500', tagColor: 'bg-teal-100 text-teal-700'
   },
   'P-04': {
-    name: '轻量BI电价预测工具', tag: '链接即用',
-    desc: '无需部署，浏览器直接访问，电价预测 + 用能分析看板',
-    features: ['日前电价预测曲线', '实时vs预测对比', '价格预警推送', '可嵌入钉钉/企微'],
-    color: 'bg-orange-500', tagColor: 'bg-orange-100 text-orange-700'
+    name: '数据工坊', tag: '数据工坊',
+    desc: '数据工坊、价格预测、偏差复盘 - 月内交易BI',
+    features: ['数据工坊市场情报', '价格预测置信区间', '偏差考核罚款模拟', '可嵌入钉钉/企微'],
+    color: 'bg-blue-500', tagColor: 'bg-blue-100 text-blue-700'
   },
   'P-05': {
     name: '代理交易服务', tag: '人工运营',
@@ -857,6 +897,8 @@ const MARKET_INFO = {
   '山西': '现货已运行（以煤电为主）',
   '内蒙古': '现货试点中（新能源占比高）',
   '江苏': '现货未完全运行（中长期为主）',
+  '安徽': '中长期为主，零售市场批零价差监管趋严',
+  '江西': '中长期+现货衔接推进，4.0版规则完善',
   '四川': '现货试点（以水电为主）',
   '其他': '政策阶段请核实当地最新公告',
 };
@@ -872,7 +914,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '封顶机制', value: '批发均价浮动≤5%' },
       { icon: '⚡', label: '现货进度', value: '初期用户侧不报量' },
     ],
-    recommendations: ['P-04偏差预警', 'P-01签约比例监测'],
+    recommendations: ['偏差预警', '签约比例监测'],
     market: '中长期为主，现货逐步推进',
   },
   '浙江': {
@@ -884,32 +926,34 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '封顶机制', value: '参考价×1.006，"就低不就高"' },
       { icon: '📈', label: '价格结构', value: '年均60%+月均30%+现货10%' },
     ],
-    recommendations: ['P-04电价预测', 'P-02多省规则引擎'],
+    recommendations: ['电价预测', '多省规则引擎'],
     market: '现货已运行，价格波动大',
   },
   '安徽': {
     name: '安徽',
-    tags: ['政策待补充', '待研读'],
+    tags: ['政策调整期', '限利趋势'],
     highlights: [
-      { icon: '📋', label: '数据状态', value: '待研读安徽省2026年交易细则' },
-      { icon: '⏰', label: '申报规则', value: '待确认' },
-      { icon: '🛡️', label: '封顶机制', value: '待确认' },
-      { icon: '⚡', label: '现货进度', value: '待确认' },
+      { icon: '📋', label: '规则版本', value: '2025征求意见中（正式文件待发布）' },
+      { icon: '💰', label: '批零价差上限', value: '≤8厘/kWh（征求意见稿）' },
+      { icon: '📊', label: '超额收益', value: '超出部分2:8分享（用户拿大头）' },
+      { icon: '⚡', label: '现货进度', value: '中长期为主，逐步推进' },
     ],
-    recommendations: ['P-01标准平台', 'P-04预测工具'],
-    market: '待研读',
+    recommendations: ['标准平台', '预测工具'],
+    market: '政策调整期，批零价差监管趋严',
+    note: '⚠️ 8厘为征求意见稿条款，正式文件请以安徽省发改委/能源局公告为准',
   },
   '江西': {
     name: '江西',
-    tags: ['政策待补充', '待研读'],
+    tags: ['4.0新版', '监管完善'],
     highlights: [
-      { icon: '📋', label: '数据状态', value: '待研读江西省2026年交易细则' },
-      { icon: '⏰', label: '申报规则', value: '待确认' },
-      { icon: '🛡️', label: '封顶机制', value: '待确认' },
-      { icon: '⚡', label: '现货进度', value: '待确认' },
+      { icon: '📋', label: '规则版本', value: '4.0版（2025年10月执行）' },
+      { icon: '💰', label: '批零价差上限', value: '≤10元/MWh（约10厘/kWh）' },
+      { icon: '📊', label: '超额收益', value: '超出部分2:8分享，售电公司留20%' },
+      { icon: '⚡', label: '现货进度', value: '中长期+现货衔接推进中' },
     ],
-    recommendations: ['P-01标准平台', 'P-04预测工具'],
-    market: '待研读',
+    recommendations: ['标准平台', '预测工具'],
+    market: '4.0版规则体系完整，监管机制明确',
+    note: '✅ 数据来源：华中能源监管局官网（2025年9月）',
   },
   '广东': {
     name: '广东',
@@ -920,7 +964,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '偏差考核', value: '考核机制完善' },
       { icon: '⚡', label: '用户参与', value: '活跃度高' },
     ],
-    recommendations: ['P-04偏差分析', 'P-02深度定制'],
+    recommendations: ['偏差分析', '深度定制'],
     market: '现货已运行，市场成熟',
   },
   '山东': {
@@ -932,7 +976,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '偏差考核', value: '市场化机制' },
       { icon: '⚡', label: '电源结构', value: '以煤电为主' },
     ],
-    recommendations: ['P-02定制平台', 'P-04预测工具'],
+    recommendations: ['定制平台', '预测工具'],
     market: '现货已运行',
   },
   '山西': {
@@ -944,7 +988,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '偏差考核', value: '有相应机制' },
       { icon: '⚡', label: '电源结构', value: '新能源占比提升' },
     ],
-    recommendations: ['P-04功率预测', 'P-02多省引擎'],
+    recommendations: ['功率预测', '多省引擎'],
     market: '现货已运行',
   },
   '内蒙古': {
@@ -956,7 +1000,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '偏差考核', value: '待确认' },
       { icon: '⚡', label: '电源结构', value: '新能源占比高' },
     ],
-    recommendations: ['P-04预测工具', 'P-02规则引擎'],
+    recommendations: ['预测工具', '规则引擎'],
     market: '现货试点，新能源高占比',
   },
   '四川': {
@@ -968,7 +1012,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '偏差考核', value: '待确认' },
       { icon: '⚡', label: '电源结构', value: '以水电为主' },
     ],
-    recommendations: ['P-04水文预测', 'P-02定制平台'],
+    recommendations: ['水文预测', '定制平台'],
     market: '现货试点，水电为主',
   },
   '其他': {
@@ -980,7 +1024,7 @@ const PROVINCE_DATA = {
       { icon: '🛡️', label: '封顶机制', value: '各省不同' },
       { icon: '⚡', label: '现货进度', value: '各省不同' },
     ],
-    recommendations: ['P-01标准平台', 'P-04通用预测'],
+    recommendations: ['标准平台', '通用预测'],
     market: '政策阶段请核实',
   },
 };
@@ -1150,44 +1194,73 @@ startTimer();
 
 // ==================== NAVIGATION ====================
 function goStep(n) {
-  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-  document.getElementById(`step${n}`).classList.add('active');
-  const wrapper = document.getElementById('progress-bar-wrapper');
-  // 步骤1-4才显示进度条
-  wrapper.style.display = (n >= 1 && n <= 4) ? '' : 'none';
-  if (n >= 1 && n <= 4) {
-    const dots = document.querySelectorAll('.step-dot');
-    dots.forEach((d, i) => {
-      d.classList.remove('active', 'done');
-      if (i+1 < n) d.classList.add('done');
-      if (i+1 === n) d.classList.add('active');
-    });
-    document.getElementById('progress-bar').style.width = `${n*25}%`;
-    document.getElementById('step-label').textContent = `第 ${n} 步 / 共 4 步`;
-    const titles = ['客户画像', '画像分析', '产品推荐', '沟通摘要'];
-    document.getElementById('step-title').textContent = titles[n-1];
+  console.log('goStep called with n=', n);
+  try {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    const stepEl = document.getElementById(`step${n}`);
+    if (stepEl) stepEl.classList.add('active');
+    const wrapper = document.getElementById('progress-bar-wrapper');
+    if (wrapper) {
+      wrapper.style.display = (n >= 1 && n <= 4) ? '' : 'none';
+    }
+    if (n >= 1 && n <= 4) {
+      const dots = document.querySelectorAll('.step-dot');
+      dots.forEach((d, i) => {
+        d.classList.remove('active', 'done');
+        if (i+1 < n) d.classList.add('done');
+        if (i+1 === n) d.classList.add('active');
+      });
+      const progressBar = document.getElementById('progress-bar');
+      if (progressBar) progressBar.style.width = `${n*25}%`;
+      const stepLabel = document.getElementById('step-label');
+      if (stepLabel) stepLabel.textContent = `第 ${n} 步 / 共 4 步`;
+      const stepTitle = document.getElementById('step-title');
+      if (stepTitle) stepTitle.textContent = ['客户画像', '画像分析', '产品推荐', '沟通摘要'][n-1];
+    }
+    if (n === 2) renderStep2();
+    if (n === 3) renderStep3();
+    if (n === 4) renderStep4();
+    showToast(`已进入第 ${n} 步`);
+  } catch (err) {
+    console.error('Error in goStep:', err);
+    showToast('导航出错，请查看控制台');
   }
-  if (n === 2) renderStep2();
-  if (n === 3) renderStep3();
-  if (n === 4) renderStep4();
 }
 
 // 进入首页（step0）
 function goToStep(n) {
-  if (n === 0) {
-    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('step0').classList.add('active');
-    document.getElementById('progress-bar-wrapper').style.display = 'none';
-  } else {
-    goStep(n);
+  console.log('goToStep called with n=', n);
+  try {
+    if (n === 0) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      const step0 = document.getElementById('step0');
+      if (step0) step0.classList.add('active');
+      const wrapper = document.getElementById('progress-bar-wrapper');
+      if (wrapper) wrapper.style.display = 'none';
+      showToast('已返回首页');
+    } else {
+      goStep(n);
+    }
+  } catch (err) {
+    console.error('Error in goToStep:', err);
+    showToast('导航出错，请查看控制台');
   }
 }
 
 // 进入产品演示页
 function goToDemoPage() {
-  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-  document.getElementById('step-demo').classList.add('active');
-  document.getElementById('progress-bar-wrapper').style.display = 'none';
+  console.log('goToDemoPage called');
+  try {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    const demo = document.getElementById('step-demo');
+    if (demo) demo.classList.add('active');
+    const wrapper = document.getElementById('progress-bar-wrapper');
+    if (wrapper) wrapper.style.display = 'none';
+    showToast('已进入产品演示页面');
+  } catch (err) {
+    console.error('Error in goToDemoPage:', err);
+    showToast('导航出错，请查看控制台');
+  }
 }
 
 // ==================== OPTION SELECTION ====================
@@ -1330,7 +1403,7 @@ const DEMO_CONFIG = {
     tags: ['多省规则引擎', '深度定制', '代运营'],
   },
   'P-03': {
-    name: 'SaaS化售电平台',
+    name: '售电侧辅助交易管理平台（SaaS版）',
     region: '通用版',
     url: 'https://app.jscoder.com/easyprd/1775111703/index.html#/login',
     account: 'jiangsudemo',
@@ -1338,12 +1411,12 @@ const DEMO_CONFIG = {
     tags: ['即开即用', '按月订阅', '零部署'],
   },
   'P-04': {
-    name: '轻量BI电价预测工具',
-    region: '通用版（新版Demo）',
-    url: 'https://doublewind2233.github.io/sales-insight-tool/p04-电价预测-demo.html',
+    name: '数据工坊',
+    region: '通用版',
+    url: '../../20260417140239/bi-dashboard.html',
     account: '无需账号',
     password: '—',
-    tags: ['日前电价预测', '96点曲线', '负荷画像', '偏差预警'],
+    tags: ['数据工坊', '价格预测', '偏差复盘'],
   },
   'P-05': {
     name: '代理交易服务',
@@ -1361,6 +1434,7 @@ const DEMO_CONFIG = {
     password: 'Bangdao2026@',
     tags: ['居间费自动算', '合规留痕', '分润配置'],
   },
+
 };
 
 // ==================== RENDER STEP 3 ====================
@@ -1471,7 +1545,7 @@ function renderStep3G() {
       <div class="flex items-center gap-2 mb-3">
         <span class="inline-flex items-center gap-1 bg-amber-500 text-white rounded-full px-3 py-1 text-xs font-bold">⚡ 发电侧专项方案</span>
       </div>
-      <h3 class="font-bold text-slate-800 text-lg mb-2">发电侧辅助交易平台</h3>
+      <h3 class="font-bold text-slate-800 text-lg mb-2">发电侧辅助交易管理平台</h3>
       <p class="text-slate-600 text-sm mb-4">专为自备电厂/余热发电工业企业设计，覆盖市场数据管理、申报辅助、交易策略全链路</p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
         <div class="bg-white rounded-lg p-3 text-center border border-amber-100">
@@ -1549,7 +1623,7 @@ function renderStep3F() {
         <span class="text-xl">🏛️</span>
         <span class="font-bold text-indigo-800">国资平台 · 产品方案</span>
       </div>
-      <p class="text-sm text-indigo-600">无论选择何种合作模式，最终落地均为统一售电平台产品，满足国资合规审计要求。</p>
+      <p class="text-sm text-indigo-600">无论选择何种合作模式，最终落地均为统一售电侧辅助交易管理平台，满足国资合规审计要求。</p>
     </div>
 
     <!-- 平台演示 -->
@@ -1557,7 +1631,7 @@ function renderStep3F() {
       <div class="flex items-center gap-2 mb-3">
         <span class="text-lg">💻</span>
         <span class="font-bold text-slate-800">平台演示</span>
-        <span class="ml-2 text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full">P-02 定制平台</span>
+        <span class="ml-2 text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full">售电侧辅助交易管理平台</span>
       </div>
       <div class="text-xs text-slate-500 mb-4">覆盖售电全链路：用户管理 · 合同套餐 · 申报结算 · 偏差预警 · 合规留痕</div>
       <div class="grid grid-cols-2 gap-3 mb-4">
@@ -1584,8 +1658,8 @@ function renderStep3F() {
         <button onclick="openDemo('P-02')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-colors">
           🚀 查看 P-02 平台演示
         </button>
-        <button onclick="openDemo('P-04')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-colors">
-          📊 P-04 电价预测 Demo
+        <button onclick="openDemo('P-04')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-colors">
+          📊 P-04 数据工坊 Demo
         </button>
       </div>
     </div>
@@ -1729,11 +1803,7 @@ function openDemoLink() {
 
 // ==================== P-04 嵌入式Demo视图 ====================
 function showP04DemoView() {
-  const el = document.getElementById('demo-view');
-  el.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  initP04DemoChart();
-  el.scrollTop = 0;
+  window.open('../../20260417140239/bi-dashboard.html', '_blank');
 }
 
 function closeP04DemoView() {
@@ -1942,6 +2012,113 @@ function showToast(msg) {
 // ==================== INIT ====================
 initOptions();
 renderRecords();
+
+// ==================== DEBUG ====================
+// 全局错误捕获
+window.addEventListener('error', function(e) {
+  console.error('全局错误捕获:', e.message, 'at', e.filename, ':', e.lineno);
+});
+
+console.log('页面加载完成');
+console.log('goToStep 函数是否存在？', typeof goToStep);
+console.log('goToDemoPage 函数是否存在？', typeof goToDemoPage);
+console.log('goStep 函数是否存在？', typeof goStep);
+
+// 检查关键元素是否存在
+console.log('step0元素:', document.getElementById('step0'));
+console.log('step-demo元素:', document.getElementById('step-demo'));
+console.log('step1元素:', document.getElementById('step1'));
+console.log('progress-bar-wrapper元素:', document.getElementById('progress-bar-wrapper'));
+
+// 终极解决方案：直接在HTML中添加了onclick属性，这是最可靠的方法
+// 以下是验证和调试代码
+function verifyCardClickability() {
+  console.log('=== 验证卡片可点击性 ===');
+  
+  const demoCard = document.getElementById('demo-card');
+  const stepCard = document.getElementById('step-card');
+  
+  console.log('1. 卡片元素是否存在？');
+  console.log('   demo-card:', demoCard ? '✓ 找到' : '✗ 未找到');
+  console.log('   step-card:', stepCard ? '✓ 找到' : '✗ 未找到');
+  
+  console.log('2. onclick属性是否设置？');
+  console.log('   demo-card onclick:', demoCard ? demoCard.onclick ? '✓ 已设置' : '✗ 未设置' : 'N/A');
+  console.log('   step-card onclick:', stepCard ? stepCard.onclick ? '✓ 已设置' : '✗ 未设置' : 'N/A');
+  
+  console.log('3. 导航函数是否可用？');
+  console.log('   goToDemoPage:', typeof goToDemoPage === 'function' ? '✓ 函数可用' : '✗ 函数不可用');
+  console.log('   goToStep:', typeof goToStep === 'function' ? '✓ 函数可用' : '✗ 函数不可用');
+  console.log('   goStep:', typeof goStep === 'function' ? '✓ 函数可用' : '✗ 函数不可用');
+  
+  console.log('4. 测试点击模拟（仅日志）');
+  if (demoCard && typeof goToDemoPage === 'function') {
+    console.log('   demo-card: 点击应调用 goToDemoPage()');
+  }
+  if (stepCard && typeof goToStep === 'function') {
+    console.log('   step-card: 点击应调用 goToStep(1)');
+  }
+  
+  console.log('=== 验证完成 ===');
+  
+  // 如果onclick属性丢失，重新设置
+  if (demoCard && !demoCard.onclick) {
+    console.warn('警告：demo-card缺少onclick，重新设置');
+    demoCard.setAttribute('onclick', 'goToDemoPage()');
+  }
+  if (stepCard && !stepCard.onclick) {
+    console.warn('警告：step-card缺少onclick，重新设置');
+    stepCard.setAttribute('onclick', 'goToStep(1)');
+  }
+  
+  showToast('页面就绪，点击卡片开始使用');
+}
+
+// 页面加载后验证
+window.addEventListener('load', function() {
+  console.log('window.load触发，开始验证卡片可点击性');
+  verifyCardClickability();
+});
+
+// DOM加载后也验证
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOMContentLoaded触发，延迟验证卡片可点击性');
+  setTimeout(verifyCardClickability, 100);
+});
+
+// 3秒后最终验证
+setTimeout(function() {
+  console.log('最终验证卡片可点击性');
+  verifyCardClickability();
+}, 3000);
+
+// 添加视觉反馈（不影响导航）
+document.addEventListener('click', function(e) {
+  const target = e.target;
+  const demoCard = document.getElementById('demo-card');
+  const stepCard = document.getElementById('step-card');
+  
+  // 检查点击是否在卡片上
+  if (demoCard && (target === demoCard || demoCard.contains(target))) {
+    console.log('产品演示卡片点击（视觉反馈）');
+    demoCard.style.borderColor = '#4f46e5';
+    demoCard.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.3)';
+    setTimeout(() => {
+      demoCard.style.borderColor = '';
+      demoCard.style.boxShadow = '';
+    }, 300);
+  }
+  
+  if (stepCard && (target === stepCard || stepCard.contains(target))) {
+    console.log('需求定位卡片点击（视觉反馈）');
+    stepCard.style.borderColor = '#10b981';
+    stepCard.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.3)';
+    setTimeout(() => {
+      stepCard.style.borderColor = '';
+      stepCard.style.boxShadow = '';
+    }, 300);
+  }
+});
 </script>
 </body>
 </html>
