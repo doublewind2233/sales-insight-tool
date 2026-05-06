@@ -1,3 +1,4 @@
+<!-- BEGIN: Head -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -65,10 +66,63 @@
     #demo-card p, #step-card p {
       pointer-events: none !important;
     }
+
+    /* 数据复盘板块新样式 */
+    .dw-review-upper, .dw-review-lower {
+      margin-bottom: 32px;
+    }
+    .dw-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .dw-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e2333;
+      margin: 0;
+    }
+    .dw-date-selector, .dw-month-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dw-date-input {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #1e2333;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .dw-date-input:focus {
+      border-color: #4f8ef7;
+      box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.1);
+    }
+    .dw-month-select {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #1e2333;
+      background: white;
+      outline: none;
+      min-width: 140px;
+      transition: border-color 0.2s;
+    }
+    .dw-month-select:focus {
+      border-color: #4f8ef7;
+      box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.1);
+    }
   </style>
 </head>
+<!-- END: Head -->
 <body class="bg-slate-50 min-h-screen">
 
+<!-- BEGIN: Navigation -->
 <!-- Header -->
 <header class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -107,9 +161,11 @@
   </div>
 </div>
 
+<!-- END: Navigation -->
 <!-- Main -->
 <main class="max-w-5xl mx-auto px-6 py-8">
 
+<!-- BEGIN: Homepage (Step 0) -->
   <!-- ======= STEP 0: 首页双卡片 ======= -->
   <div class="step-content active" id="step0">
     <div class="text-center mb-10 mt-4">
@@ -138,6 +194,8 @@
     </div>
   </div>
 
+<!-- END: Homepage (Step 0) -->
+<!-- BEGIN: Product Demo List (Step Demo) -->
   <!-- ======= STEP DEMO: 产品演示列表 ======= -->
   <div class="step-content" id="step-demo">
     <div class="flex items-center gap-3 mb-6">
@@ -236,7 +294,9 @@
     </div>
   </div>
 
+<!-- END: Product Demo List (Step Demo) -->
   <!-- ======= STEP 1: 画像预诊 ======= -->
+<!-- BEGIN: Demand Positioning Step 1 -->
   <div class="step-content" id="step1">
     <div class="mb-6">
       <h2 class="text-xl font-bold text-slate-800 mb-1">客户画像预诊</h2>
@@ -447,7 +507,9 @@
     </div>
   </div>
 
+<!-- END: Demand Positioning Step 1 -->
   <!-- ======= STEP 2: 画像卡 + 隐性需求 ======= -->
+<!-- BEGIN: Demand Positioning Step 2 -->
   <div class="step-content" id="step2">
     <div class="mb-6">
       <h2 class="text-xl font-bold text-slate-800 mb-1">客户画像卡</h2>
@@ -501,7 +563,9 @@
     </div>
   </div>
 
+<!-- END: Demand Positioning Step 2 -->
   <!-- ======= STEP 3: 产品推荐 ======= -->
+<!-- BEGIN: Demand Positioning Step 3 -->
   <div class="step-content" id="step3">
     <div class="mb-6">
       <h2 class="text-xl font-bold text-slate-800 mb-1">产品推荐</h2>
@@ -559,7 +623,9 @@
     </div>
   </div>
 
+<!-- END: Demand Positioning Step 3 -->
   <!-- ======= STEP 4: 摘要 ======= -->
+<!-- BEGIN: Demand Positioning Step 4 -->
   <div class="step-content" id="step4">
     <div class="mb-6">
       <h2 class="text-xl font-bold text-slate-800 mb-1">沟通摘要</h2>
@@ -608,6 +674,7 @@
     </div>
   </div>
 
+<!-- END: Demand Positioning Step 4 -->
 </main>
 
 <!-- Toast -->
@@ -615,6 +682,7 @@
   <span id="toast-msg">已保存</span>
 </div>
 
+<!-- BEGIN: Data Workshop Demo (P-04) -->
 <!-- P-04 弹窗Demo视图 - 数据工坊内嵌版 -->
 <style>
 /* 数据工坊内嵌样式 */
@@ -624,7 +692,7 @@
   color: #1e2333;
   font-size: 13px;
 }
-.dw-kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 16px; }
+.dw-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
 .dw-kpi-card { background: white; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #eaecf2; }
 .dw-kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .dw-kpi-label { font-size: 11px; color: #8f95a8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -635,7 +703,7 @@
 .dw-kpi-trend.up { background: #fef2f2; color: #ef4444; }
 .dw-kpi-trend.down { background: #f0fdf4; color: #10b981; }
 .dw-kpi-meta { font-size: 11px; color: #b0b6c8; }
-.dw-chart-row-2 { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.dw-chart-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 .dw-chart-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 .dw-card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #eaecf0; overflow: hidden; }
 .dw-card-header { padding: 14px 18px 12px; border-bottom: 1px solid #f0f2f7; display: flex; align-items: center; justify-content: space-between; }
@@ -670,6 +738,21 @@
 .dw-footer { padding: 16px 0; text-align: center; font-size: 11px; color: #b0b6c8; }
 @media (max-width: 1100px) { .dw-chart-row-2 { grid-template-columns: 1fr 1fr; } .dw-chart-row-3 { grid-template-columns: 1fr 1fr; } .dw-kpi-row { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 800px) { .dw-kpi-row { grid-template-columns: repeat(2, 1fr); } }
+
+/* 确保数据复盘板块对齐 */
+.dw-review-upper, .dw-review-lower {
+  width: 100%;
+}
+.dw-review-upper .dw-kpi-row,
+.dw-review-lower .dw-chart-row-2 {
+  width: 100%;
+  box-sizing: border-box;
+}
+.dw-review-upper .dw-kpi-card,
+.dw-review-lower .dw-card {
+  width: 100%;
+  box-sizing: border-box;
+}
 </style>
 
 <div id="demo-view" style="display:none;position:fixed;inset:0;z-index:999;background:white;overflow-y:auto;">
@@ -689,7 +772,7 @@
         </div>
       </div>
       <div class="ml-auto flex items-center gap-3">
-        <span class="text-xs text-slate-400">📅 2026年4月28日 · 江苏</span>
+        <span class="text-xs text-slate-400">📅 江苏</span>
         <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-semibold">数据工坊 V1.0</span>
       </div>
     </div>
@@ -714,82 +797,108 @@
 
       <!-- MODULE 1: 数据工坊 -->
       <div id="dw-module-workshop" class="dw-module-content active">
-        <div class="dw-kpi-row">
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">实时电价</div><div class="dw-kpi-icon" style="background:#eff6ff;color:#4f8ef7;">⚡</div></div>
-            <div class="dw-kpi-value">0.486<small> 元/kWh</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 2.1%</span><span class="dw-kpi-meta">较昨日</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">批零价差</div><div class="dw-kpi-icon" style="background:#f0fdf4;color:#10b981;">💰</div></div>
-            <div class="dw-kpi-value">28.5<small> 元/MWh</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend down">▼ 3.8%</span><span class="dw-kpi-meta">合规范围内</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">日交易量</div><div class="dw-kpi-icon" style="background:#faf5ff;color:#8b5cf6;">📊</div></div>
-            <div class="dw-kpi-value">8.42<small> 万MWh</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 5.6%</span><span class="dw-kpi-meta">市场活跃</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">政策更新</div><div class="dw-kpi-icon" style="background:#fff7ed;color:#f59e0b;">📰</div></div>
-            <div class="dw-kpi-value">3<small> 条</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 新增</span><span class="dw-kpi-meta">本月累计 12 条</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">套利空间</div><div class="dw-kpi-icon" style="background:#fef2f2;color:#ef4444;">🎯</div></div>
-            <div class="dw-kpi-value">2.4<small> %</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend down">▼ 0.8%</span><span class="dw-kpi-meta">较上周</span></div>
+
+        <!-- 日期选择器 -->
+        <div class="dw-card" style="margin-bottom:14px;">
+          <div class="dw-card-body">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:12px; font-weight:600; color:#1e2333;">选择日期:</span>
+              <input type="date" id="dw-date-selector" value="2026-04-28" style="padding:6px 12px; border:1px solid #e2e6f0; border-radius:6px; font-size:12px; color:#1e2333;" />
+              <span style="font-size:11px; color:#8f95a8; margin-left:auto;">日期切换将联动更新下方图表数据</span>
+            </div>
           </div>
         </div>
 
-        <div class="dw-chart-row-2">
-          <div class="dw-card" style="grid-column: span 2;">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">📈</div>
-                <div><div class="dw-card-title-text">多品种价格曲线对比</div><div class="dw-card-title-sub">2026-04-28 · 多种交易品种价格走势（模拟数据）</div></div>
+        <!-- 市场供需与价格图表 -->
+        <div class="dw-chart-row-2" style="grid-template-columns: 2fr 1fr;">
+          <!-- 左侧两个折线图 -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <!-- 供需管理图 -->
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">📈</div>
+                  <div>
+                    <div class="dw-card-title-text">市场供需平衡图</div>
+                    <div class="dw-card-title-sub">日前/实时 · 火电竞价空间、直调负荷、联络线、新能源、地方电厂、试验机组、自备机组</div>
+                  </div>
+                </div>
+                <div class="dw-card-actions">
+                  <button class="dw-card-btn active" data-type="dayAhead">日前</button>
+                  <button class="dw-card-btn" data-type="realTime">实时</button>
+                </div>
               </div>
-              <div class="dw-card-actions">
-                <button class="dw-card-btn active" data-product="dayAhead">日前现货</button>
-                <button class="dw-card-btn" data-product="realTime">实时现货</button>
-                <button class="dw-card-btn" data-product="greenPower">绿色电力</button>
+              <div class="dw-card-body">
+                <div id="dw-supply-demand-chart" style="height:280px;"></div>
               </div>
             </div>
-            <div class="dw-card-body"><div id="dw-workshop-price-chart" style="height:280px;"></div></div>
-          </div>
-          <div class="dw-card">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#f0fdf4;color:#10b981;">🔥</div>
-                <div><div class="dw-card-title-text">批零价差热力图</div><div class="dw-card-title-sub">24小时×7天价差分布（元/MWh）</div></div>
+            <!-- 价格数据图 -->
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#f0fdf4;color:#10b981;">💰</div>
+                  <div>
+                    <div class="dw-card-title-text">价格数据图</div>
+                    <div class="dw-card-title-sub">日前、实时、能量块价格走势</div>
+                  </div>
+                </div>
+                <div class="dw-card-actions">
+                  <button class="dw-card-btn active" data-product="dayAhead">日前</button>
+                  <button class="dw-card-btn" data-product="realTime">实时</button>
+                  <button class="dw-card-btn" data-product="energyBlock">能量块</button>
+                </div>
               </div>
-              <button class="dw-card-btn">周视图</button>
+              <div class="dw-card-body">
+                <div id="dw-price-chart" style="height:280px;"></div>
+              </div>
             </div>
-            <div class="dw-card-body"><div id="dw-workshop-heatmap" style="height:280px;"></div></div>
           </div>
-        </div>
 
-        <div class="dw-chart-row-2">
-          <div class="dw-card">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#faf5ff;color:#8b5cf6;">📊</div>
-                <div><div class="dw-card-title-text">交易量趋势（近30天）</div><div class="dw-card-title-sub">日/周/月交易量对比</div></div>
+          <!-- 右侧三个天气小图 -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <!-- 太阳辐射 -->
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#fff7ed;color:#f59e0b;">☀️</div>
+                  <div>
+                    <div class="dw-card-title-text">太阳辐射强度</div>
+                    <div class="dw-card-title-sub">江苏地区 · W/m²</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dw-card-body">
+                <div id="dw-solar-radiation-chart" style="height:120px;"></div>
               </div>
             </div>
-            <div class="dw-card-body"><div id="dw-workshop-volume-chart" style="height:240px;"></div></div>
-          </div>
-          <div class="dw-card" style="grid-column: span 2;">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#fff7ed;color:#f59e0b;">📰</div>
-                <div><div class="dw-card-title-text">最新政策公告摘要</div><div class="dw-card-title-sub">电力交易相关政策动态</div></div>
+            <!-- 降水量 -->
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">🌧️</div>
+                  <div>
+                    <div class="dw-card-title-text">降水量预报</div>
+                    <div class="dw-card-title-sub">江苏地区 · mm</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dw-card-body">
+                <div id="dw-precipitation-chart" style="height:120px;"></div>
               </div>
             </div>
-            <div class="dw-card-body">
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <div style="display:flex;gap:12px;padding:12px;background:#fffbeb;border:1px solid #fef3c7;border-radius:8px;"><span style="font-size:16px;">📰</span><div><div style="font-size:13px;font-weight:600;color:#1e2333;">浙江省发布2026年零售封顶价新规</div><div style="font-size:11px;color:#6b738f;margin-top:2px;">封顶价格 = 零售套餐参考价格 + 当月零售市场总体参考价格 × 上浮比例（≤0.6%）</div><div style="font-size:10px;color:#b0b6c8;margin-top:4px;">2026-04-25 · 政策公告</div></div></div>
-                <div style="display:flex;gap:12px;padding:12px;background:#fffbeb;border:1px solid #fef3c7;border-radius:8px;"><span style="font-size:16px;">📰</span><div><div style="font-size:13px;font-weight:600;color:#1e2333;">江苏省调整中长期结算参考点</div><div style="font-size:11px;color:#6b738f;margin-top:2px;">参考点设在用户侧，采用差量结算方式，偏差部分在现货市场结算</div><div style="font-size:10px;color:#b0b6c8;margin-top:4px;">2026-04-22 · 政策公告</div></div></div>
+            <!-- 风速 -->
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#f0fdf4;color:#10b981;">💨</div>
+                  <div>
+                    <div class="dw-card-title-text">风速预测</div>
+                    <div class="dw-card-title-sub">江苏地区 · m/s</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dw-card-body">
+                <div id="dw-wind-speed-chart" style="height:120px;"></div>
               </div>
             </div>
           </div>
@@ -798,164 +907,179 @@
 
       <!-- MODULE 2: 数据预测 -->
       <div id="dw-module-forecast" class="dw-module-content">
-        <div class="dw-forecast-day-tabs">
-          <div class="dw-forecast-day-tab active" data-day="1" onclick="switchDwDay(1)">D+1</div>
-          <div class="dw-forecast-day-tab" data-day="2" onclick="switchDwDay(2)">D+2</div>
-          <div class="dw-forecast-day-tab" data-day="3" onclick="switchDwDay(3)">D+3</div>
-          <div class="dw-forecast-day-tab" data-day="4" onclick="switchDwDay(4)">D+4</div>
-          <div class="dw-forecast-day-tab" data-day="5" onclick="switchDwDay(5)">D+5</div>
-          <div class="dw-forecast-day-tab" data-day="6" onclick="switchDwDay(6)">D+6</div>
-          <div class="dw-forecast-day-tab" data-day="7" onclick="switchDwDay(7)">D+7</div>
-        </div>
-
-        <div class="dw-kpi-row">
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">预测均价</div><div class="dw-kpi-icon" style="background:#eff6ff;color:#4f8ef7;">📊</div></div>
-            <div class="dw-kpi-value" id="dw-pred-price">0.492<small> 元/kWh</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 1.2%</span><span class="dw-kpi-meta">较基准</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">预测偏差率</div><div class="dw-kpi-icon" style="background:#f0fdf4;color:#10b981;">🎯</div></div>
-            <div class="dw-kpi-value" id="dw-pred-dev">3.8<small> %</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend down">▼ 0.4%</span><span class="dw-kpi-meta">模型优化</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">置信度</div><div class="dw-kpi-icon" style="background:#faf5ff;color:#8b5cf6;">🧠</div></div>
-            <div class="dw-kpi-value" id="dw-pred-conf">94.2<small> %</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 0.8%</span><span class="dw-kpi-meta">综合评分</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">套利机会</div><div class="dw-kpi-icon" style="background:#fff7ed;color:#f59e0b;">💰</div></div>
-            <div class="dw-kpi-value" id="dw-pred-arbitrage">3<small> 次</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 新增1</span><span class="dw-kpi-meta">D+1日内</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">负荷预测</div><div class="dw-kpi-icon" style="background:#fef2f2;color:#ef4444;">⚡</div></div>
-            <div class="dw-kpi-value">-<small> MWh</small></div>
-            <div class="flex items-center gap-2"><button class="dw-card-btn" style="padding:3px 10px;font-size:11px;" onclick="openDwLoadModal()">点击查看样本</button></div>
+        <div class="dw-forecast-date-selector" style="margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <span style="font-size: 12px; color: #6b738f; font-weight: 500;">选择日期：</span>
+            <input type="date" id="dw-forecast-date-picker" style="padding: 6px 10px; border: 1px solid #e0e4f0; border-radius: 6px; font-size: 12px; color: #1e2333; background: #fff; min-width: 140px;">
+            <span style="font-size: 11px; color: #8f95a8; margin-left: 8px;">或选择相对日期：</span>
+            <div class="dw-forecast-day-tabs" style="flex: 1; display: flex; justify-content: flex-start;">
+              <div class="dw-forecast-day-tab active" data-day="1" onclick="switchDwDay(1)">D+1</div>
+              <div class="dw-forecast-day-tab" data-day="2" onclick="switchDwDay(2)">D+2</div>
+              <div class="dw-forecast-day-tab" data-day="3" onclick="switchDwDay(3)">D+3</div>
+              <div class="dw-forecast-day-tab" data-day="4" onclick="switchDwDay(4)">D+4</div>
+              <div class="dw-forecast-day-tab" data-day="5" onclick="switchDwDay(5)">D+5</div>
+              <div class="dw-forecast-day-tab" data-day="6" onclick="switchDwDay(6)">D+6</div>
+              <div class="dw-forecast-day-tab" data-day="7" onclick="switchDwDay(7)">D+7</div>
+            </div>
           </div>
         </div>
 
-        <div class="dw-chart-row-2">
-          <div class="dw-card" style="grid-column: span 2;">
+
+        <!-- 价格预测上下布局 -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <!-- 上部分: 价格折线图 -->
+          <div class="dw-card">
             <div class="dw-card-header">
               <div class="dw-card-title">
                 <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">📈</div>
-                <div><div class="dw-card-title-text">多品种电价预测曲线</div><div class="dw-card-title-sub" id="dw-forecast-subtitle">D+1 · 2026-04-29 · 支持多种交易品种预测</div></div>
+                <div><div class="dw-card-title-text">多品种电价预测曲线</div><div class="dw-card-title-sub" id="dw-forecast-subtitle">D+1 · 日前、实时、能量块价格走势</div></div>
               </div>
               <div class="dw-card-actions">
-                <button class="dw-card-btn forecast-btn active" data-product="dayAhead">日前</button>
-                <button class="dw-card-btn forecast-btn" data-product="realTime">实时</button>
                 <button class="dw-card-btn" onclick="toggleDwConfidence('shadow')">阴影区间</button>
                 <button class="dw-card-btn" onclick="toggleDwConfidence('errorbar')">误差棒</button>
               </div>
             </div>
-            <div class="dw-card-body"><div id="dw-forecast-price-chart" style="height:320px;"></div></div>
+            <div class="dw-card-body"><div id="dw-forecast-price-chart" style="height:300px;"></div></div>
           </div>
+
+          <!-- 下部分: 96点详细表格 -->
           <div class="dw-card">
             <div class="dw-card-header">
               <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#f0fdf4;color:#10b981;">💰</div>
-                <div><div class="dw-card-title-text">价差预测面板</div><div class="dw-card-title-sub">批零价差与区域价差预测</div></div>
+                <div class="dw-card-title-icon" style="background:#f0fdf4;color:#10b981;">📊</div>
+                <div><div class="dw-card-title-text">96点详细数据表格</div><div class="dw-card-title-sub">日前、实时、能量块价格及价差预测（单位: 元/MWh）</div></div>
+              </div>
+              <div class="dw-card-actions">
+                <span style="font-size:11px; color:#8f95a8;">滚动查看完整96点数据</span>
               </div>
             </div>
-            <div class="dw-card-body">
-              <div style="display:flex;flex-direction:column;gap:16px;">
-                <div><div style="font-size:11px;color:#8f95a8;margin-bottom:4px;">批零价差预测</div><div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:22px;font-weight:800;color:#1e2333;">26.8</span><span style="font-size:12px;color:#8f95a8;">元/MWh</span><span style="margin-left:auto;font-size:11px;color:#10b981;background:#f0fdf4;padding:2px 8px;border-radius:6px;font-weight:600;">▼ 1.2%</span></div><div style="font-size:10px;color:#b0b6c8;margin-top:4px;">合规上限: 30元/MWh</div></div>
-                <div><div style="font-size:11px;color:#8f95a8;margin-bottom:4px;">区域价差预测</div><div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:22px;font-weight:800;color:#1e2333;">8.4</span><span style="font-size:12px;color:#8f95a8;">元/MWh</span><span style="margin-left:auto;font-size:11px;color:#ef4444;background:#fef2f2;padding:2px 8px;border-radius:6px;font-weight:600;">▲ 2.8%</span></div><div style="font-size:10px;color:#b0b6c8;margin-top:4px;">A-B省间价差</div></div>
+            <div class="dw-card-body" style="padding:0;">
+              <div id="dw-forecast-table-container" style="max-height:280px; overflow-x:auto;">
+                <table class="dw-data-table" id="dw-forecast-table" style="min-width: 2000px;">
+                  <thead>
+                    <tr>
+                      <th style="min-width: 80px; position: sticky; left: 0; background: #f8f9fc; z-index: 2;">品种</th>
+                      <!-- 96个时间点表头由JavaScript动态生成 -->
+                    </tr>
+                  </thead>
+                  <tbody id="dw-forecast-table-body">
+                    <!-- 表格数据由JavaScript动态生成 -->
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="dw-card" style="margin-top:14px;">
-          <div class="dw-card-header">
-            <div class="dw-card-title">
-              <div class="dw-card-title-icon" style="background:#faf5ff;color:#8b5cf6;">📊</div>
-              <div><div class="dw-card-title-text">预测置信度时段分布</div><div class="dw-card-title-sub">各时段预测信心评分（高/中/低）</div></div>
-            </div>
-          </div>
-          <div class="dw-card-body"><div id="dw-forecast-confidence-chart" style="height:180px;"></div></div>
         </div>
       </div>
 
       <!-- MODULE 3: 数据复盘 -->
       <div id="dw-module-review" class="dw-module-content">
-        <div class="dw-kpi-row">
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">月度偏差罚款</div><div class="dw-kpi-icon" style="background:#fef2f2;color:#ef4444;">💰</div></div>
-            <div class="dw-kpi-value">124.5<small> K</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 8.3%</span><span class="dw-kpi-meta">较上月</span></div>
+        <!-- 上层：日度复盘 -->
+        <div class="dw-review-upper">
+          <div class="dw-section-header">
+            <h3 class="dw-section-title">日度复盘</h3>
+            <div class="dw-date-selector">
+              <input type="date" id="dw-daily-date-picker" class="dw-date-input" value="2026-05-06">
+              <button class="dw-card-btn active" onclick="refreshDailyKPIs()" style="margin-left: 12px;">刷新</button>
+            </div>
           </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">超标日统计</div><div class="dw-kpi-icon" style="background:#fff7ed;color:#f59e0b;">⚠️</div></div>
-            <div class="dw-kpi-value">7<small> 天</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend down">▼ 2天</span><span class="dw-kpi-meta">本月已过28天</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">预测准确率</div><div class="dw-kpi-icon" style="background:#f0fdf4;color:#10b981;">🎯</div></div>
-            <div class="dw-kpi-value">96.2<small> %</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 1.8%</span><span class="dw-kpi-meta">提升中</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">罚款减少空间</div><div class="dw-kpi-icon" style="background:#eff6ff;color:#4f8ef7;">📉</div></div>
-            <div class="dw-kpi-value">8.3<small> K</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend down">▼ 每1%</span><span class="dw-kpi-meta">准确率提升</span></div>
-          </div>
-          <div class="dw-kpi-card">
-            <div class="dw-kpi-top"><div class="dw-kpi-label">客户满意度</div><div class="dw-kpi-icon" style="background:#faf5ff;color:#8b5cf6;">😊</div></div>
-            <div class="dw-kpi-value">92.4<small> %</small></div>
-            <div class="flex items-center gap-2"><span class="dw-kpi-trend up">▲ 3.1%</span><span class="dw-kpi-meta">较上月</span></div>
+          
+          <div class="dw-kpi-row" style="margin-top: 16px;">
+            <div class="dw-kpi-card">
+              <div class="dw-kpi-top">
+                <div class="dw-kpi-label">日前预测准确率</div>
+                <div class="dw-kpi-icon" style="background:#eff6ff;color:#4f8ef7;">📈</div>
+              </div>
+              <div class="dw-kpi-value">95.2<small> %</small></div>
+              <div class="flex items-center gap-2">
+                <span class="dw-kpi-trend up">▲ 0.4%</span>
+                <span class="dw-kpi-meta">较昨日</span>
+              </div>
+            </div>
+            <div class="dw-kpi-card">
+              <div class="dw-kpi-top">
+                <div class="dw-kpi-label">实时预测准确率</div>
+                <div class="dw-kpi-icon" style="background:#f0fdf4;color:#10b981;">⚡</div>
+              </div>
+              <div class="dw-kpi-value">93.1<small> %</small></div>
+              <div class="flex items-center gap-2">
+                <span class="dw-kpi-trend up">▲ 0.8%</span>
+                <span class="dw-kpi-meta">较昨日</span>
+              </div>
+            </div>
+            <div class="dw-kpi-card">
+              <div class="dw-kpi-top">
+                <div class="dw-kpi-label">价差预测准确率</div>
+                <div class="dw-kpi-icon" style="background:#fff7ed;color:#f59e0b;">💰</div>
+              </div>
+              <div class="dw-kpi-value">89.5<small> %</small></div>
+              <div class="flex items-center gap-2">
+                <span class="dw-kpi-trend up">▲ 0.9%</span>
+                <span class="dw-kpi-meta">较昨日</span>
+              </div>
+            </div>
+            <div class="dw-kpi-card">
+              <div class="dw-kpi-top">
+                <div class="dw-kpi-label">负荷预测准确率</div>
+                <div class="dw-kpi-icon" style="background:#faf5ff;color:#8b5cf6;">📊</div>
+              </div>
+              <div class="dw-kpi-value">91.8<small> %</small></div>
+              <div class="flex items-center gap-2">
+                <span class="dw-kpi-trend up">▲ 1.2%</span>
+                <span class="dw-kpi-meta">较昨日</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="dw-chart-row-2">
-          <div class="dw-card" style="grid-column: span 2;">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#fef2f2;color:#ef4444;">💰</div>
-                <div><div class="dw-card-title-text">偏差考核罚款模拟分析</div><div class="dw-card-title-sub">2026年04月 · 罚款构成与趋势</div></div>
-              </div>
-              <div class="dw-card-actions">
-                <button class="dw-card-btn active">分客户</button>
-                <button class="dw-card-btn">分省份</button>
-                <button class="dw-card-btn">分时段</button>
-              </div>
+        <!-- 下层：月度复盘 -->
+        <div class="dw-review-lower" style="margin-top: 32px;">
+          <div class="dw-section-header">
+            <h3 class="dw-section-title">月度复盘</h3>
+            <div class="dw-month-selector">
+              <select id="dw-month-picker" class="dw-month-select">
+                <option value="2026-04">2026年04月</option>
+                <option value="2026-03">2026年03月</option>
+                <option value="2026-02">2026年02月</option>
+                <option value="2026-01">2026年01月</option>
+                <option value="2025-12">2025年12月</option>
+                <option value="2025-11">2025年11月</option>
+              </select>
+              <button class="dw-card-btn active" onclick="refreshMonthlyCharts()">刷新</button>
             </div>
-            <div class="dw-card-body"><div id="dw-review-penalty-chart" style="height:280px;"></div></div>
           </div>
-          <div class="dw-card">
-            <div class="dw-card-header">
-              <div class="dw-card-title">
-                <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">📊</div>
-                <div><div class="dw-card-title-text">预测准确率业务影响</div><div class="dw-card-title-sub">准确率提升 vs 罚款减少关系</div></div>
-              </div>
-            </div>
-            <div class="dw-card-body">
-              <div style="padding:10px;">
-                <div style="text-align:center;margin-bottom:16px;"><div style="font-size:32px;font-weight:800;color:#10b981;line-height:1;">¥8,300</div><div style="font-size:11px;color:#8f95a8;">准确率提升1%可减少罚款</div></div>
-                <div style="background:#f8f9fc;border-radius:8px;padding:12px;margin-bottom:12px;">
-                  <div style="font-size:11px;color:#8f95a8;margin-bottom:6px;">当前准确率: 96.2%</div>
-                  <div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:#e8eaf0;border-radius:3px;overflow:hidden;"><div style="width:96.2%;height:100%;background:linear-gradient(90deg,#4f8ef7,#10b981);border-radius:3px;"></div></div><span style="font-size:12px;font-weight:700;color:#1e2333;">96.2%</span></div>
+
+          <div class="dw-chart-row-2" style="margin-top: 16px;">
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#eff6ff;color:#4f8ef7;">📈</div>
+                  <div>
+                    <div class="dw-card-title-text">月度预测准确率趋势</div>
+                    <div class="dw-card-title-sub">选择月份，查看该月每日的预测准确率</div>
+                  </div>
                 </div>
-                <div style="font-size:11px;color:#6b738f;line-height:1.5;"><div>• 准确率每提升1%，月度罚款减少约¥8,300</div><div>• 目标准确率98%，可再减少罚款¥14,900/月</div><div>• 年化节省可达¥178,800</div></div>
+              </div>
+              <div class="dw-card-body">
+                <div id="dw-review-accuracy-chart" style="height:280px;"></div>
+              </div>
+            </div>
+            
+            <div class="dw-card">
+              <div class="dw-card-header">
+                <div class="dw-card-title">
+                  <div class="dw-card-title-icon" style="background:#faf5ff;color:#8b5cf6;">📊</div>
+                  <div>
+                    <div class="dw-card-title-text">负荷预测准确率</div>
+                    <div class="dw-card-title-sub">月度负荷预测准确率趋势</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dw-card-body">
+                <div id="dw-review-load-accuracy-chart" style="height:280px;"></div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="dw-card" style="margin-top:14px;">
-          <div class="dw-card-header">
-            <div class="dw-card-title">
-              <div class="dw-card-title-icon" style="background:#faf5ff;color:#8b5cf6;">📈</div>
-              <div><div class="dw-card-title-text">历史偏差趋势（近6个月）</div><div class="dw-card-title-sub">偏差率走势与政策变化节点</div></div>
-            </div>
-            <div class="dw-card-actions">
-              <button class="dw-card-btn active">6个月</button>
-              <button class="dw-card-btn">12个月</button>
-            </div>
-          </div>
-          <div class="dw-card-body"><div id="dw-review-deviation-trend" style="height:240px;"></div></div>
         </div>
       </div>
 
@@ -1067,7 +1191,9 @@
   </div>
 </div>
 
+<!-- END: Data Workshop Demo (P-04) -->
 <script>
+<!-- BEGIN: JavaScript Code -->
 // ==================== DATA ====================
 const PRODUCTS = {
   'P-01': {
@@ -2023,6 +2149,8 @@ function openDemoLink() {
 let dwChartsInited = { workshop: false, forecast: false, review: false };
 let dwForecastDay = 1;
 let dwForecastProduct = 'dayAhead';
+let dwConfidenceVisible = true;
+let dwConfidenceType = 'shadow'; // 'shadow' or 'errorbar'
 
 function showP04DemoView() {
   document.getElementById('demo-view').style.display = 'block';
@@ -2055,64 +2183,508 @@ function initDwWorkshopCharts() {
   if (dwChartsInited.workshop) return;
   dwChartsInited.workshop = true;
   
-  // 1. 多品种价格曲线
-  const priceChart = echarts.init(document.getElementById('dw-workshop-price-chart'));
+  // 日期选择器事件监听
+  const dateSelector = document.getElementById('dw-date-selector');
+  if (dateSelector) {
+    dateSelector.addEventListener('change', () => {
+      updateDwWorkshopCharts(dateSelector.value);
+    });
+  }
+  
+  // 供需图切换按钮事件
+  document.querySelectorAll('#dw-supply-demand-chart').forEach(chartContainer => {
+    const buttons = chartContainer.closest('.dw-card')?.querySelectorAll('.dw-card-btn[data-type]');
+    if (buttons) {
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const type = this.dataset.type;
+          buttons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          // 这里可以添加切换供需图显示逻辑
+          // 暂时只更新按钮状态，图表数据由日期选择器统一更新
+        });
+      });
+    }
+  });
+  
+  // 价格图切换按钮事件
+  document.querySelectorAll('#dw-price-chart').forEach(chartContainer => {
+    const buttons = chartContainer.closest('.dw-card')?.querySelectorAll('.dw-card-btn[data-product]');
+    if (buttons) {
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const product = this.dataset.product;
+          buttons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          // 这里可以添加切换价格图显示逻辑
+          // 暂时只更新按钮状态，图表数据由日期选择器统一更新
+        });
+      });
+    }
+  });
+  
+  // 初始渲染
+  updateDwWorkshopCharts(dateSelector ? dateSelector.value : '2026-04-28');
+}
+
+function updateDwWorkshopCharts(selectedDate) {
+  // 生成96点时间标签
   const xLabels = Array.from({length: 96}, (_, i) => {
     const h = Math.floor(i / 4), m = (i % 4) * 15;
     return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
   });
   
-  function genProductData(type) {
-    return xLabels.map((_, i) => {
-      const hour = i / 4;
-      let base = 0.45 + 0.3 * Math.sin(hour * Math.PI / 12 - Math.PI/2);
-      const vol = type === 'realTime' ? 0.12 : 0.08;
-      const rw = Math.random() * vol * 2 - vol;
-      return +(base + rw + (Math.random() * 0.03 - 0.015)).toFixed(3);
+  // 1. 市场供需平衡图
+  const supplyDemandChart = echarts.init(document.getElementById('dw-supply-demand-chart'));
+  if (supplyDemandChart) {
+    const series = [
+      { name: '火电竞价空间', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2.5, color: '#ef4444' }, data: generateSupplyDemandData('bidding', xLabels) },
+      { name: '直调负荷', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#4f8ef7', type: 'dashed' }, data: generateSupplyDemandData('load', xLabels) },
+      { name: '联络线', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#10b981' }, data: generateSupplyDemandData('tieline', xLabels) },
+      { name: '新能源', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#8b5cf6', type: 'dotted' }, data: generateSupplyDemandData('newEnergy', xLabels) },
+      { name: '地方电厂', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#f59e0b' }, data: generateSupplyDemandData('localPower', xLabels) },
+      { name: '试验机组', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 1.5, color: '#94a3b8' }, data: generateSupplyDemandData('testUnit', xLabels) },
+      { name: '自备机组', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 1.5, color: '#64748b' }, data: generateSupplyDemandData('selfUnit', xLabels) }
+    ];
+    
+    supplyDemandChart.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+      legend: { 
+        data: ['火电竞价空间', '直调负荷', '联络线', '新能源', '地方电厂', '试验机组', '自备机组'],
+        top: 0,
+        right: 10,
+        textStyle: { color: '#8f95a8', fontSize: 10 },
+        type: 'scroll',
+        pageTextStyle: { color: '#8f95a8' }
+      },
+      grid: { left: 48, right: 16, top: 36, bottom: 32 },
+      xAxis: { 
+        type: 'category', 
+        data: xLabels.filter((_, i) => i % 8 === 0), 
+        axisLabel: { color: '#8f95a8', fontSize: 10, interval: 0 }, 
+        axisLine: { lineStyle: { color: '#eaecf0' } } 
+      },
+      yAxis: { 
+        type: 'value', 
+        name: 'MW', 
+        nameTextStyle: { color: '#8f95a8', fontSize: 11 }, 
+        axisLabel: { color: '#8f95a8', fontSize: 11 }, 
+        splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+        min: 0,
+        max: 120000,
+        interval: 30000,
+        axisLine: { show: true, lineStyle: { color: '#eaecf0' } },
+        axisTick: { show: true, length: 4 }
+      },
+      series: series
     });
   }
   
-  priceChart.setOption({
-    backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
-    legend: { data: ['日前现货', '实时现货', '绿色电力'], top: 0, right: 10, textStyle: { color: '#8f95a8', fontSize: 11 } },
-    grid: { left: 48, right: 16, top: 36, bottom: 32 },
-    xAxis: { type: 'category', data: xLabels.filter((_, i) => i % 8 === 0), axisLabel: { color: '#8f95a8', fontSize: 10, interval: 0 }, axisLine: { lineStyle: { color: '#eaecf0' } } },
-    yAxis: { type: 'value', name: '元/kWh', nameTextStyle: { color: '#8f95a8', fontSize: 11 }, axisLabel: { color: '#8f95a8', fontSize: 11 }, splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } }, min: 0, max: 0.7 },
-    series: [
-      { name: '日前现货', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 2.5, color: '#4f8ef7' }, data: genProductData('dayAhead') },
-      { name: '实时现货', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 2, color: '#10b981', type: 'dashed' }, data: genProductData('realTime') },
-      { name: '绿色电力', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 2, color: '#8b5cf6' }, data: genProductData('greenPower') }
-    ]
-  });
-  
-  // 2. 批零价差热力图
-  const heatmapChart = echarts.init(document.getElementById('dw-workshop-heatmap'));
-  const heatmapData = [];
-  for (let i = 0; i < 7; i++) for (let j = 0; j < 24; j++) {
-    const base = 20 + 15 * Math.sin(j * Math.PI / 12) + 5 * Math.sin(i * Math.PI / 3.5);
-    heatmapData.push([i, j, Math.max(10, Math.min(50, base + (Math.random() * 8 - 4)))]);
+  // 2. 价格数据图
+  const priceChart = echarts.init(document.getElementById('dw-price-chart'));
+  if (priceChart) {
+    const series = [
+      { 
+        name: '日前价格', 
+        type: 'line', 
+        smooth: 0.3, 
+        symbol: 'none', 
+        lineStyle: { width: 2.5, color: '#4f8ef7' }, 
+        data: generatePriceData('dayAhead', xLabels),
+        markLine: {
+          silent: true,
+          symbol: 'none',
+          lineStyle: { color: '#eaecf0', width: 1, type: 'dashed' },
+          data: [
+            { yAxis: 200, label: { show: true, position: 'end', formatter: '下限 200', color: '#10b981', fontSize: 10 } },
+            { yAxis: 600, label: { show: true, position: 'end', formatter: '上限 600', color: '#ef4444', fontSize: 10 } }
+          ]
+        }
+      },
+      { name: '实时价格', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#10b981', type: 'dashed' }, data: generatePriceData('realTime', xLabels) },
+      { name: '能量块价格', type: 'line', smooth: 0.3, symbol: 'none', lineStyle: { width: 2, color: '#8b5cf6' }, data: generatePriceData('energyBlock', xLabels) }
+    ];
+    
+    priceChart.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+      legend: { 
+        data: ['日前价格', '实时价格', '能量块价格'],
+        top: 0,
+        right: 10,
+        textStyle: { color: '#8f95a8', fontSize: 11 }
+      },
+      grid: { left: 48, right: 16, top: 36, bottom: 32 },
+      xAxis: { 
+        type: 'category', 
+        data: xLabels.filter((_, i) => i % 8 === 0), 
+        axisLabel: { color: '#8f95a8', fontSize: 10, interval: 0 }, 
+        axisLine: { lineStyle: { color: '#eaecf0' } } 
+      },
+      yAxis: { 
+        type: 'value', 
+        name: '元/MWh', 
+        nameTextStyle: { color: '#8f95a8', fontSize: 11 }, 
+        axisLabel: { color: '#8f95a8', fontSize: 11 }, 
+        splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+        min: 150,
+        max: 650,
+        interval: 100,
+        axisLine: { show: true, lineStyle: { color: '#eaecf0' } },
+        axisTick: { show: true, length: 4 },
+        // 添加江苏市场价格上下限标记
+        axisLabel: { 
+          color: '#8f95a8', 
+          fontSize: 11,
+          formatter: function(value) {
+            if (value === 200) return '{a|200}';
+            if (value === 600) return '{b|600}';
+            return value;
+          },
+          rich: {
+            a: { color: '#10b981', fontWeight: 'bold' },
+            b: { color: '#ef4444', fontWeight: 'bold' }
+          }
+        }
+      },
+      series: series
+    });
   }
-  heatmapChart.setOption({
-    backgroundColor: 'transparent',
-    tooltip: { position: 'top', formatter: p => `${['周一','周二','周三','周四','周五','周六','周日'][p.data[0]]} ${p.data[1]}:00<br/>价差: ${p.data[2]}元/MWh` },
-    grid: { left: 60, right: 20, top: 30, bottom: 40 },
-    xAxis: { type: 'category', data: Array.from({length: 24}, (_, i) => `${i}:00`).filter((_, i) => i % 3 === 0), position: 'top', axisLabel: { color: '#8f95a8', fontSize: 9, interval: 0 } },
-    yAxis: { type: 'category', data: ['周一','周二','周三','周四','周五','周六','周日'], axisLabel: { color: '#8f95a8', fontSize: 10 } },
-    visualMap: { min: 10, max: 50, calculable: true, orient: 'horizontal', left: 'center', bottom: 0, textStyle: { color: '#8f95a8', fontSize: 9 }, inRange: { color: ['#f0fdf4', '#10b981', '#f59e0b', '#ef4444'] } },
-    series: [{ type: 'heatmap', data: heatmapData, label: { show: false } }]
-  });
   
-  // 3. 交易量趋势
-  const volumeChart = echarts.init(document.getElementById('dw-workshop-volume-chart'));
-  const volData = Array.from({length: 30}, (_, i) => +(7.5 + 1.5 * Math.sin(i * Math.PI / 15) + (Math.random() * 0.8 - 0.4)).toFixed(1));
-  volumeChart.setOption({
-    backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
-    grid: { left: 40, right: 16, top: 8, bottom: 28 },
-    xAxis: { type: 'category', data: Array.from({length: 30}, (_, i) => `${i+1}日`).filter((_, i) => i % 5 === 0), axisLabel: { color: '#8f95a8', fontSize: 9 } },
-    yAxis: { type: 'value', name: '万MWh', nameTextStyle: { color: '#8f95a8', fontSize: 10 }, axisLabel: { color: '#8f95a8', fontSize: 10 }, splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } } },
-    series: [{ type: 'bar', data: volData.map(v => ({ value: v, itemStyle: { color: v > 8.5 ? '#ef4444' : v > 7.8 ? '#f59e0b' : '#4f8ef7', borderRadius: [3,3,0,0] } })), barMaxWidth: 20 }]
+  // 3. 天气数据图表
+  // 太阳辐射强度
+  const solarChart = echarts.init(document.getElementById('dw-solar-radiation-chart'));
+  if (solarChart) {
+    const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+    const solarData = hours.map((_, i) => {
+      const hour = i;
+      const base = hour >= 6 && hour <= 18 ? 800 * Math.sin((hour - 6) * Math.PI / 12) : 0;
+      return +(base + Math.random() * 50 - 25).toFixed(0);
+    });
+    
+    solarChart.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+      grid: { left: 36, right: 8, top: 8, bottom: 24 },
+      xAxis: { 
+        type: 'category', 
+        data: hours.filter((_, i) => i % 3 === 0), 
+        axisLabel: { color: '#8f95a8', fontSize: 9, interval: 0 }, 
+        axisLine: { show: false },
+        axisTick: { show: false }
+      },
+      yAxis: { 
+        type: 'value', 
+        name: 'W/m²', 
+        nameTextStyle: { color: '#8f95a8', fontSize: 9 }, 
+        axisLabel: { color: '#8f95a8', fontSize: 9 }, 
+        splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+        min: 0,
+        max: 900,
+        interval: 200,
+        axisLine: { show: false },
+        axisTick: { show: true, length: 3 }
+      },
+      series: [{
+        type: 'line',
+        smooth: 0.2,
+        symbol: 'none',
+        lineStyle: { width: 2, color: '#f59e0b' },
+        areaStyle: { color: new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,0.2)'},{offset:1,color:'rgba(245,158,11,0.01)'}]) },
+        data: solarData
+      }]
+    });
+  }
+  
+  // 降水量
+  const precipitationChart = echarts.init(document.getElementById('dw-precipitation-chart'));
+  if (precipitationChart) {
+    const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+    const precipData = hours.map((_, i) => {
+      // 模拟降雨，集中在某些时段
+      const hour = i;
+      const probability = hour >= 14 && hour <= 18 ? 0.6 : 0.1;
+      return Math.random() < probability ? +(Math.random() * 5).toFixed(1) : 0;
+    });
+    
+    precipitationChart.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+      grid: { left: 36, right: 8, top: 8, bottom: 24 },
+      xAxis: { 
+        type: 'category', 
+        data: hours.filter((_, i) => i % 3 === 0), 
+        axisLabel: { color: '#8f95a8', fontSize: 9, interval: 0 }, 
+        axisLine: { show: false },
+        axisTick: { show: false }
+      },
+      yAxis: { 
+        type: 'value', 
+        name: 'mm', 
+        nameTextStyle: { color: '#8f95a8', fontSize: 9 }, 
+        axisLabel: { color: '#8f95a8', fontSize: 9 }, 
+        splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+        min: 0,
+        max: 6,
+        interval: 2,
+        axisLine: { show: false },
+        axisTick: { show: true, length: 3 }
+      },
+      series: [{
+        type: 'bar',
+        barWidth: '60%',
+        itemStyle: { color: '#4f8ef7', borderRadius: [2,2,0,0] },
+        data: precipData
+      }]
+    });
+  }
+  
+  // 风速
+  const windChart = echarts.init(document.getElementById('dw-wind-speed-chart'));
+  if (windChart) {
+    const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+    const windData = hours.map((_, i) => {
+      const hour = i;
+      const base = 3 + 2 * Math.sin(hour * Math.PI / 12);
+      return +(base + Math.random() * 1.5 - 0.75).toFixed(1);
+    });
+    
+    windChart.setOption({
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+      grid: { left: 36, right: 8, top: 8, bottom: 24 },
+      xAxis: { 
+        type: 'category', 
+        data: hours.filter((_, i) => i % 3 === 0), 
+        axisLabel: { color: '#8f95a8', fontSize: 9, interval: 0 }, 
+        axisLine: { show: false },
+        axisTick: { show: false }
+      },
+      yAxis: { 
+        type: 'value', 
+        name: 'm/s', 
+        nameTextStyle: { color: '#8f95a8', fontSize: 9 }, 
+        axisLabel: { color: '#8f95a8', fontSize: 9 }, 
+        splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+        min: 0,
+        max: 8,
+        interval: 2,
+        axisLine: { show: false },
+        axisTick: { show: true, length: 3 }
+      },
+      series: [{
+        type: 'line',
+        smooth: 0.2,
+        symbol: 'none',
+        lineStyle: { width: 2, color: '#10b981' },
+        data: windData
+      }]
+    });
+  }
+}
+
+// 辅助函数：生成供需数据（增强波动性，更写实，适配竞品刻度0-120000）
+function generateSupplyDemandData(type, xLabels) {
+  const scaleFactor = 25; // 缩放因子，将数据从几千级别放大到几万级别，匹配0-120000刻度
+  return xLabels.map((_, i) => {
+    const hour = i / 4; // 0-23.75
+    const minute = i % 4; // 0-3 (0,15,30,45)
+    const timeOfDay = hour + minute/4; // 0-23.75
+    let base = 0;
+    let volatility = 0;
+    let randomFactor = Math.random();
+    let spikeProbability = 0;
+    
+    switch(type) {
+      case 'bidding': // 火电竞价空间 - 早晚高峰，中午低谷，加入竞价波动
+        // 双峰曲线：早高峰(8-11)和晚高峰(18-21)
+        const morningPeak = hour >= 8 && hour <= 11 ? 0.7 : 0;
+        const eveningPeak = hour >= 18 && hour <= 21 ? 0.8 : 0;
+        const middayDip = hour >= 12 && hour <= 14 ? -0.3 : 0;
+        base = (2500 + 1200 * Math.sin(timeOfDay * Math.PI / 12 - Math.PI/2)
+               + 800 * morningPeak + 900 * eveningPeak + 400 * middayDip) * scaleFactor;
+        volatility = 0.15; // 竞价波动较大
+        // 随机竞价事件（5%概率出现突变）
+        if (randomFactor < 0.05 && hour >= 10 && hour <= 16) {
+          base += (Math.random() * 600 - 300) * scaleFactor; // 随机增减，按比例缩放
+        }
+        break;
+        
+      case 'load': // 直调负荷 - 典型双峰负荷曲线
+        // 早高峰(8-11)和晚高峰(18-21)明显，夜间低谷
+        const morningLoad = hour >= 8 && hour <= 11 ? 0.9 : 0;
+        const eveningLoad = hour >= 18 && hour <= 21 ? 1.0 : 0;
+        const nightValley = hour >= 1 && hour <= 5 ? -0.4 : 0;
+        base = (3000 + 800 * Math.sin(timeOfDay * Math.PI / 12 - Math.PI/2)
+               + 1000 * morningLoad + 1100 * eveningLoad + 500 * nightValley) * scaleFactor;
+        volatility = 0.08;
+        // 负荷随机波动（工业用户启停）
+        if (randomFactor < 0.1) {
+          base += (Math.random() * 400 - 200) * scaleFactor;
+        }
+        break;
+        
+      case 'tieline': // 联络线 - 相对平稳，但有跨省交易计划性波动
+        // 联络线功率通常按计划曲线，午间和夜间有调整
+        const noonAdjust = hour >= 12 && hour <= 14 ? 0.3 : 0;
+        const nightAdjust = hour >= 22 || hour <= 6 ? -0.2 : 0;
+        base = (800 + 300 * Math.sin(timeOfDay * Math.PI / 12 + 0.5)
+               + 200 * noonAdjust + 150 * nightAdjust) * scaleFactor;
+        volatility = 0.05;
+        // 跨省交易随机调整（3%概率）
+        if (randomFactor < 0.03) {
+          base += (Math.random() * 200 - 100) * scaleFactor;
+        }
+        break;
+        
+      case 'newEnergy': // 新能源 - 受天气影响大，间歇性波动强
+        // 光伏：白天有功率，夜间为0；风电：全天波动
+        const solarComponent = hour >= 6 && hour <= 18 ? 800 * Math.sin((timeOfDay-6) * Math.PI / 12) : 0;
+        const windComponent = 400 + 300 * Math.sin(timeOfDay * Math.PI / 6 + 1.2);
+        base = (solarComponent + windComponent) * scaleFactor;
+        if (base < 0) base = 0;
+        volatility = 0.25; // 新能源波动极大
+        // 天气突变：云层遮挡或阵风
+        if (randomFactor < 0.08) {
+          base *= (0.7 + Math.random() * 0.6); // 功率骤降或骤升，按比例缩放
+        }
+        // 夜间风电可能突然增加
+        if (hour >= 20 && hour <= 4 && randomFactor < 0.05) {
+          base += Math.random() * 300 * scaleFactor;
+        }
+        break;
+        
+      case 'localPower': // 地方电厂 - 跟随负荷，但响应较慢
+        base = (600 + 250 * Math.sin(timeOfDay * Math.PI / 12 - 0.3)) * scaleFactor;
+        // 叠加负荷跟随成分
+        if (hour >= 8 && hour <= 21) base += 200 * scaleFactor;
+        volatility = 0.07;
+        // 地方电厂启停（2%概率）
+        if (randomFactor < 0.02 && hour >= 10 && hour <= 18) {
+          base += (Math.random() * 150 - 75) * scaleFactor;
+        }
+        break;
+        
+      case 'testUnit': // 试验机组 - 小功率，偶尔测试波动
+        base = (200 + 80 * Math.sin(timeOfDay * Math.PI / 8)) * scaleFactor;
+        volatility = 0.12;
+        // 试验期间功率突变（5%概率）
+        if (randomFactor < 0.05) {
+          base += (Math.random() * 100 - 50) * scaleFactor;
+        }
+        break;
+        
+      case 'selfUnit': // 自备机组 - 根据企业生产计划波动
+        base = (400 + 150 * Math.sin(timeOfDay * Math.PI / 12)) * scaleFactor;
+        // 工作日白天功率高
+        const isWorkHour = hour >= 7 && hour <= 19;
+        base += isWorkHour ? 100 * scaleFactor : -50 * scaleFactor;
+        volatility = 0.09;
+        // 生产调整（4%概率）
+        if (randomFactor < 0.04 && isWorkHour) {
+          base += (Math.random() * 120 - 60) * scaleFactor;
+        }
+        break;
+    }
+    
+    // 应用随机波动（基于volatility参数）
+    const randomWalk = (Math.random() * volatility * 2 - volatility) * base;
+    // 高频噪声（模拟测量噪声）
+    const noise = (Math.random() * 0.04 - 0.02) * base;
+    let value = base + randomWalk + noise;
+    
+    // 确保非负（新能源可能为0）
+    if (type === 'newEnergy' && value < 0) value = 0;
+    
+    // 确保值在合理范围内（适配0-120000刻度）
+    if (value < 0) value = 0;
+    if (type === 'bidding' && value > 120000) value = 120000;
+    if (type === 'load' && value > 110000) value = 110000;
+    
+    return Math.round(value);
+  });
+}
+
+// 辅助函数：生成价格数据（增强波动性，更写实）
+function generatePriceData(type, xLabels) {
+  return xLabels.map((_, i) => {
+    const hour = i / 4;
+    const minute = i % 4;
+    const timeOfDay = hour + minute/4;
+    let base = 0;
+    let volatility = 0;
+    let randomFactor = Math.random();
+    
+    // 基础价格曲线：早晚高峰价格高，深夜低谷
+    const morningPeak = hour >= 8 && hour <= 11 ? 0.25 : 0;
+    const eveningPeak = hour >= 18 && hour <= 21 ? 0.3 : 0;
+    const nightValley = hour >= 1 && hour <= 5 ? -0.15 : 0;
+    
+    base = 400 + 120 * Math.sin(timeOfDay * Math.PI / 12 - Math.PI/2)
+           + 80 * morningPeak + 90 * eveningPeak + 60 * nightValley;
+    
+    switch(type) {
+      case 'dayAhead': // 日前价格 - 相对平稳，但仍有波动
+        volatility = 0.08;
+        // 日前市场预测误差导致的波动
+        if (randomFactor < 0.07) {
+          base += (Math.random() * 40 - 20);
+        }
+        // 午间价格可能因新能源大发而降低
+        if (hour >= 11 && hour <= 14) {
+          base -= 15 + Math.random() * 20;
+        }
+        break;
+        
+      case 'realTime': // 实时价格 - 波动剧烈，受实时供需影响大
+        volatility = 0.18;
+        // 实时市场价格尖峰（5%概率出现尖峰）
+        if (randomFactor < 0.05) {
+          base += (Math.random() * 100 - 30); // 更可能上涨
+        }
+        // 新能源波动导致价格快速变化
+        const newEnergyEffect = Math.sin(timeOfDay * Math.PI / 6) * 25;
+        base += newEnergyEffect;
+        // 负荷突变导致价格波动
+        if (hour >= 9 && hour <= 12 && randomFactor < 0.1) {
+          base += (Math.random() * 60 - 20);
+        }
+        // 晚高峰价格飙升概率更高
+        if (hour >= 18 && hour <= 20 && randomFactor < 0.15) {
+          base += 30 + Math.random() * 50;
+        }
+        break;
+        
+      case 'energyBlock': // 能量块价格 - 介于日前和实时之间
+        volatility = 0.12;
+        // 能量块交易时段特征
+        if (hour >= 10 && hour <= 16) {
+          base += Math.random() * 30 - 10;
+        }
+        // 能量块可能受跨区交易影响
+        if (randomFactor < 0.06) {
+          base += (Math.random() * 50 - 25);
+        }
+        break;
+    }
+    
+    // 应用随机波动
+    const randomWalk = (Math.random() * volatility * 2 - volatility) * base;
+    // 高频噪声
+    const noise = Math.random() * 10 - 5;
+    let price = base + randomWalk + noise;
+    
+    // 确保在江苏价格范围内 (200-600元/MWh) 但允许偶尔超出范围（真实市场会有极端价格）
+    // 95%概率在范围内，5%概率轻微超出
+    if (randomFactor < 0.95) {
+      price = Math.max(200, Math.min(600, price));
+    } else {
+      // 允许轻微超出，模拟市场极端情况
+      price = Math.max(180, Math.min(620, price));
+    }
+    
+    return Math.round(price);
   });
 }
 
@@ -2120,30 +2692,78 @@ function initDwWorkshopCharts() {
 function initDwForecastCharts() {
   if (dwChartsInited.forecast) return;
   dwChartsInited.forecast = true;
+  // 初始化日期选择器
+  const datePicker = document.getElementById('dw-forecast-date-picker');
+  if (datePicker) {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const dd = String(tomorrow.getDate()).padStart(2, '0');
+    datePicker.value = `${yyyy}-${mm}-${dd}`;
+    datePicker.min = datePicker.value; // 最小选择明天
+    datePicker.addEventListener('change', handleDatePickerChange);
+  }
+  // 设置置信区间按钮初始active状态
+  const shadowBtn = document.querySelector('.dw-card-actions button[onclick*="shadow"]');
+  if (shadowBtn) {
+    shadowBtn.classList.add('active');
+  }
   updateDwForecastChart();
   updateDwConfidenceChart();
 }
 
+
 function switchDwDay(day) {
   dwForecastDay = day;
+  // 更新tab激活状态（仅当day在1-7之间）
   document.querySelectorAll('.dw-forecast-day-tab').forEach(t => t.classList.remove('active'));
-  document.querySelector(`.dw-forecast-day-tab[data-day="${day}"]`).classList.add('active');
+  const tab = document.querySelector(`.dw-forecast-day-tab[data-day="${day}"]`);
+  if (tab) {
+    tab.classList.add('active');
+  }
   updateDwForecastChart();
-  // 更新KPI
-  const kpis = {
-    1: { price: '0.492', dev: '3.8', conf: '94.2', arb: '3' },
-    2: { price: '0.498', dev: '4.2', conf: '92.8', arb: '2' },
-    3: { price: '0.502', dev: '4.6', conf: '91.5', arb: '2' },
-    4: { price: '0.508', dev: '5.1', conf: '90.2', arb: '1' },
-    5: { price: '0.514', dev: '5.5', conf: '89.4', arb: '1' },
-    6: { price: '0.521', dev: '6.0', conf: '88.7', arb: '1' },
-    7: { price: '0.528', dev: '6.4', conf: '87.9', arb: '1' }
-  };
-  const d = kpis[day] || kpis[1];
-  document.getElementById('dw-pred-price').innerHTML = `${d.price}<small> 元/kWh</small>`;
-  document.getElementById('dw-pred-dev').innerHTML = `${d.dev}<small> %</small>`;
-  document.getElementById('dw-pred-conf').innerHTML = `${d.conf}<small> %</small>`;
-  document.getElementById('dw-pred-arbitrage').innerHTML = `${d.arb}<small> 次</small>`;
+  // 更新日期选择器值（同步到对应日期）
+  updateDatePickerFromDay(day);
+}
+
+function updateDatePickerFromDay(day) {
+  const datePicker = document.getElementById('dw-forecast-date-picker');
+  if (!datePicker) return;
+  const today = new Date();
+  const targetDate = new Date(today);
+  targetDate.setDate(today.getDate() + day);
+  const yyyy = targetDate.getFullYear();
+  const mm = String(targetDate.getMonth() + 1).padStart(2, '0');
+  const dd = String(targetDate.getDate()).padStart(2, '0');
+  const newValue = `${yyyy}-${mm}-${dd}`;
+  if (datePicker.value === newValue) return;
+  // 暂时移除change事件监听器以避免循环
+  datePicker.removeEventListener('change', handleDatePickerChange);
+  datePicker.value = newValue;
+  // 重新添加事件监听器
+  setTimeout(() => {
+    datePicker.addEventListener('change', handleDatePickerChange);
+  }, 10);
+}
+
+function handleDatePickerChange() {
+  const datePicker = document.getElementById('dw-forecast-date-picker');
+  if (!datePicker) return;
+  const selectedDate = new Date(datePicker.value);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  selectedDate.setHours(0,0,0,0);
+  const diffTime = selectedDate.getTime() - today.getTime();
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays === dwForecastDay) return; // 如果天数未变化，跳过
+  if (diffDays >= 1) {
+    switchDwDay(diffDays);
+  } else {
+    // 如果选择今天或过去日期，默认设置为D+1
+    switchDwDay(1);
+  }
 }
 
 function updateDwForecastChart() {
@@ -2152,27 +2772,221 @@ function updateDwForecastChart() {
     const h = Math.floor(i / 4), m = (i % 4) * 15;
     return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
   });
-  const forecastData = xLabels.map((_, i) => {
+  // 使用真实96点日前和实时价格数据（用户提供）
+  const realDayAheadBase = [85.882,86.358,85.872,85.889,86.537,87.328,88.919,90.247,92.470,92.126,93.147,93.573,93.971,108.479,121.903,136.822,151.274,161.878,173.663,185.155,196.249,197.199,198.115,199.151,199.971,193.865,188.523,182.422,176.352,170.204,164.524,157.388,150.897,149.300,147.672,145.506,144.580,145.715,148.544,150.427,151.740,152.115,151.413,150.093,150.584,154.818,160.568,165.916,171.481,239.378,306.559,375.121,442.323,442.727,442.098,443.085,442.772,442.619,442.468,441.109,441.094,426.693,412.573,398.671,384.528,383.399,382.303,382.362,381.391,372.014,362.132,353.294,343.264,332.612,320.530,309.006,297.678,264.882,230.945,197.604,162.983,151.357,137.886,125.984,113.053,109.395,106.267,101.491,98.564,98.420,98.342,98.262,98.263,95.177,91.601,88.881];
+  const realRealTimeBase = [84.549,84.280,84.061,84.082,84.114,85.870,88.168,89.271,91.215,98.908,104.543,111.965,118.123,116.998,116.800,116.494,116.202,130.943,147.353,162.914,179.616,181.398,183.392,184.869,187.041,184.326,182.031,178.272,176.586,169.168,163.490,157.202,150.097,148.360,147.724,145.766,143.957,149.033,152.522,157.117,161.569,161.020,159.206,158.900,157.788,162.838,167.016,172.435,177.447,230.804,284.587,337.268,390.849,398.017,405.375,413.449,421.149,412.287,403.620,394.595,386.468,374.213,362.936,351.089,340.806,339.940,339.704,338.713,338.546,321.335,304.973,287.766,271.779,259.414,246.874,233.893,221.548,192.682,163.235,134.124,105.560,104.099,104.311,103.047,102.342,99.777,96.051,93.406,90.350,80.139,71.013,62.073,52.241,60.317,68.483,76.038];
+  
+  // 根据预测天数调整价格（D+1使用基准数据，D+2到D+7逐渐增加不确定性）
+  const dayFactor = 1 + (dwForecastDay - 1) * 0.05; // 每天增加5%的波动
+  const uncertainty = (dwForecastDay - 1) * 0.03; // 不确定性随天数增加
+  
+  // 生成日前价格：基准数据加上随天数增加的随机波动
+  const dayAheadPrices = realDayAheadBase.map((basePrice, i) => {
     const hour = i / 4;
-    const base = 0.45 + 0.3 * Math.sin(hour * Math.PI / 12 - Math.PI/2);
-    const dayFactor = 1 + (dwForecastDay - 1) * 0.03;
-    return +((base * dayFactor) + (Math.random() * 0.08 - 0.04)).toFixed(3);
+    // 根据时间调整波动：高峰时段波动大，低谷时段波动小
+    const hourFactor = hour >= 8 && hour <= 20 ? 0.08 : 0.03;
+    const dayVariation = basePrice * (dayFactor - 1) * hourFactor;
+    const randomWalk = basePrice * uncertainty * (Math.random() * 2 - 1);
+    const price = basePrice + dayVariation + randomWalk;
+    return +(price).toFixed(2);
   });
-  const confUpper = forecastData.map(v => +(v + 0.03 + dwForecastDay * 0.005).toFixed(3));
-  const confLower = forecastData.map(v => +(v - 0.03 - dwForecastDay * 0.005).toFixed(3));
+  
+  // 生成实时价格：基准数据加上更大的波动（实时市场更不稳定）
+  const realTimePrices = realRealTimeBase.map((basePrice, i) => {
+    const hour = i / 4;
+    // 实时市场价格波动更大
+    const hourFactor = hour >= 8 && hour <= 20 ? 0.12 : 0.05;
+    const dayVariation = basePrice * (dayFactor - 1) * hourFactor * 1.5;
+    const randomWalk = basePrice * uncertainty * 1.2 * (Math.random() * 2 - 1);
+    const price = basePrice + dayVariation + randomWalk;
+    return +(price).toFixed(2);
+  });
+  
+  // 生成能量块价格：日前和实时价格的平均值，加上一些随机波动
+  const energyBlockPrices = dayAheadPrices.map((dayPrice, i) => {
+    const realPrice = realTimePrices[i];
+    const avg = (dayPrice + realPrice) / 2;
+    // 添加一些小随机波动（±3%以内）
+    const variation = avg * 0.03 * (Math.random() * 2 - 1);
+    return +(avg + variation).toFixed(2);
+  });
+  
+  // 置信区间（仅针对日前价格）：随天数增加而变宽
+  const confWidth = 0.05 + dwForecastDay * 0.02; // 基础5% + 每天增加2%
+  const confUpper = dayAheadPrices.map(v => +(v * (1 + confWidth)).toFixed(2));
+  const confLower = dayAheadPrices.map(v => +(v * (1 - confWidth)).toFixed(2));
   
   chart.setOption({
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
-    legend: { data: ['预测价格', '置信区间'], top: 0, right: 10, textStyle: { color: '#8f95a8', fontSize: 11 } },
+    tooltip: { 
+      trigger: 'axis', 
+      backgroundColor: 'rgba(26,39,68,0.96)',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
+    },
+    legend: { 
+      data: ['日前价格', '实时价格', '能量块价格', '置信区间'], 
+      top: 0, 
+      right: 10, 
+      textStyle: { color: '#8f95a8', fontSize: 11 },
+      selected: {
+        '日前价格': true,
+        '实时价格': true,
+        '能量块价格': true,
+        '置信区间': dwConfidenceVisible
+      }
+    },
     grid: { left: 48, right: 16, top: 36, bottom: 32 },
-    xAxis: { type: 'category', data: xLabels.filter((_, i) => i % 8 === 0), axisLabel: { color: '#8f95a8', fontSize: 10, interval: 0 }, axisLine: { lineStyle: { color: '#eaecf0' } } },
-    yAxis: { type: 'value', name: '元/kWh', nameTextStyle: { color: '#8f95a8', fontSize: 11 }, axisLabel: { color: '#8f95a8', fontSize: 11 }, splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } }, min: 0, max: 0.7 },
+    xAxis: { 
+      type: 'category', 
+      data: xLabels, 
+      axisLabel: { color: '#8f95a8', fontSize: 10, interval: 7 }, 
+      axisLine: { lineStyle: { color: '#eaecf0' } } 
+    },
+    yAxis: { 
+      type: 'value', 
+      name: '元/MWh', 
+      nameTextStyle: { color: '#8f95a8', fontSize: 11 }, 
+      axisLabel: { color: '#8f95a8', fontSize: 11 }, 
+      splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } }, 
+      min: 0, 
+      max: 550,
+      interval: 100
+    },
     series: [
-      { name: '预测价格', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 3, color: '#4f8ef7' }, data: forecastData },
-      { name: '置信区间', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 0 }, data: confUpper, areaStyle: { color: 'rgba(79,142,247,0.15)' }, stack: 'conf', showSymbol: false },
-      { name: '', type: 'line', smooth: 0.4, symbol: 'none', lineStyle: { width: 0 }, data: confLower, areaStyle: { color: 'rgba(79,142,247,0.15)' }, stack: 'conf', showSymbol: false }
+      { 
+        name: '日前价格', 
+        type: 'line', 
+        smooth: 0.4, 
+        symbol: 'none', 
+        lineStyle: { width: 3, color: '#4f8ef7' }, 
+        data: dayAheadPrices 
+      },
+      { 
+        name: '实时价格', 
+        type: 'line', 
+        smooth: 0.4, 
+        symbol: 'none', 
+        lineStyle: { width: 3, color: '#10b981' }, 
+        data: realTimePrices 
+      },
+      { 
+        name: '能量块价格', 
+        type: 'line', 
+        smooth: 0.4, 
+        symbol: 'none', 
+        lineStyle: { width: 3, color: '#f59e0b' }, 
+        data: energyBlockPrices 
+      },
+      { 
+        name: '置信区间', 
+        type: 'line', 
+        smooth: 0.4, 
+        symbol: 'none', 
+        lineStyle: { width: 0 }, 
+        data: confUpper, 
+        areaStyle: { color: 'rgba(79,142,247,0.15)' }, 
+        stack: 'conf', 
+        showSymbol: false,
+        show: dwConfidenceVisible
+      },
+      { 
+        name: '', 
+        type: 'line', 
+        smooth: 0.4, 
+        symbol: 'none', 
+        lineStyle: { width: 0 }, 
+        data: confLower, 
+        areaStyle: { color: 'rgba(79,142,247,0.15)' }, 
+        stack: 'conf', 
+        showSymbol: false,
+        tooltip: { show: false },
+        show: dwConfidenceVisible
+      }
     ]
+  });
+
+  // 更新96点详细数据表格
+  updateDwForecastTable(xLabels, dayAheadPrices, realTimePrices, energyBlockPrices);
+}
+
+function updateDwForecastTable(xLabels, dayAheadPrices, realTimePrices, energyBlockPrices) {
+  const table = document.getElementById('dw-forecast-table');
+  if (!table) return;
+  
+  // 使用传入的价格数据（不再重新生成随机数据）
+  
+  // 更新表头：生成96个时间点列
+  const thead = table.querySelector('thead');
+  thead.innerHTML = '';
+  const headerRow = document.createElement('tr');
+  // 第一列：品种
+  headerRow.innerHTML = '<th style="min-width: 80px; position: sticky; left: 0; background: #f8f9fc; text-align: center; z-index: 2;">品种</th>';
+  // 添加96个时间点列
+  for (let i = 0; i < 96; i++) {
+    const th = document.createElement('th');
+    th.textContent = xLabels[i];
+    th.style.minWidth = '60px';
+    th.style.fontSize = '11px';
+    th.style.fontWeight = '500';
+    th.style.color = '#6b738f';
+    headerRow.appendChild(th);
+  }
+  thead.appendChild(headerRow);
+  
+  // 更新表格体
+  const tbody = document.getElementById('dw-forecast-table-body');
+  tbody.innerHTML = '';
+  
+  // 定义四行数据：日前价格、实时价格、能量块价格、价差预测
+  const rows = [
+    { name: '日前价格', values: dayAheadPrices, color: '#1e2333' },
+    { name: '实时价格', values: realTimePrices, color: '#1e2333' },
+    { name: '能量块价格', values: energyBlockPrices, color: '#1e2333' },
+    { name: '价差预测', values: dayAheadPrices.map((p, i) => dayAheadPrices[i] - realTimePrices[i]), color: '#1e2333' }
+  ];
+  
+  rows.forEach(rowData => {
+    const row = document.createElement('tr');
+    // 第一列：品种名称
+    const nameCell = document.createElement('td');
+    nameCell.textContent = rowData.name;
+    nameCell.style.minWidth = '80px';
+    nameCell.style.position = 'sticky';
+    nameCell.style.left = '0';
+    nameCell.style.background = '#f8f9fc';
+    nameCell.style.zIndex = '1';
+    nameCell.style.fontWeight = '600';
+    nameCell.style.color = rowData.color;
+    nameCell.style.textAlign = 'center';
+    row.appendChild(nameCell);
+    
+    // 数据单元格
+    for (let i = 0; i < 96; i++) {
+      const cell = document.createElement('td');
+      let value = rowData.values[i];
+      if (rowData.name === '价差预测') {
+        const diff = value;
+        const direction = diff >= 0 ? '+' : '-';
+        const color = diff >= 0 ? '#10b981' : '#ef4444';
+        cell.textContent = direction + Math.abs(diff).toFixed(2);
+        cell.style.color = color;
+        cell.style.fontWeight = '600';
+      } else {
+        cell.textContent = value.toFixed(2);
+        cell.style.color = rowData.color;
+      }
+      cell.style.textAlign = 'center';
+      cell.style.fontSize = '11px';
+      cell.style.padding = '6px 4px';
+      cell.style.borderBottom = '1px solid #f0f2f7';
+      row.appendChild(cell);
+    }
+    tbody.appendChild(row);
   });
 }
 
@@ -2182,7 +2996,16 @@ function updateDwConfidenceChart() {
   const confData = hours.map((_, i) => Math.max(70, Math.min(98, 88 - (dwForecastDay - 1) * 1.5 + 10 * Math.sin(i * Math.PI / 12) + (Math.random() * 6 - 3))));
   chart.setOption({
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+    tooltip: { 
+      trigger: 'axis', 
+      backgroundColor: 'rgba(26,39,68,0.96)',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
+    },
     grid: { left: 40, right: 16, top: 8, bottom: 28 },
     xAxis: { type: 'category', data: hours.filter((_, i) => i % 3 === 0), axisLabel: { color: '#8f95a8', fontSize: 9 } },
     yAxis: { type: 'value', name: '%', nameTextStyle: { color: '#8f95a8', fontSize: 10 }, axisLabel: { color: '#8f95a8', fontSize: 10 }, splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } } },
@@ -2190,42 +3013,238 @@ function updateDwConfidenceChart() {
   });
 }
 
-function toggleDwConfidence(type) { /* 简化处理 */ }
+function toggleDwConfidence(type) {
+  // 切换置信区间显示状态
+  dwConfidenceVisible = !dwConfidenceVisible;
+  dwConfidenceType = type;
+  
+  // 更新按钮active状态
+  document.querySelectorAll('.dw-card-actions button').forEach(btn => {
+    if (btn.textContent.includes('阴影区间') || btn.textContent.includes('误差棒')) {
+      btn.classList.remove('active');
+    }
+  });
+  // 只有当前类型的按钮在显示时设置为active
+  if (dwConfidenceVisible) {
+    const activeBtn = document.querySelector(`.dw-card-actions button[onclick*="${type}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+    }
+  }
+  // 重新渲染图表
+  updateDwForecastChart();
+}
 
 // ==================== 数据工坊复盘图表 ====================
 function initDwReviewCharts() {
   if (dwChartsInited.review) return;
   dwChartsInited.review = true;
   
-  // 1. 偏差考核罚款
-  const penaltyChart = echarts.init(document.getElementById('dw-review-penalty-chart'));
-  const penaltyData = [
-    { name: '苏州工业园', value: 42.5, itemStyle: { color: '#ef4444' } },
-    { name: '昆山制造基地', value: 28.3, itemStyle: { color: '#f59e0b' } },
-    { name: '南京商业综合体', value: 18.7, itemStyle: { color: '#4f8ef7' } },
-    { name: '扬州数据中心', value: 15.2, itemStyle: { color: '#4f8ef7' } },
-    { name: '无锡纺织集群', value: 12.8, itemStyle: { color: '#4f8ef7' } },
-    { name: '其他客户', value: 7.5, itemStyle: { color: '#94a3b8' } }
-  ];
-  penaltyChart.setOption({
+  // 初始化图表（默认显示当前月份）
+  const monthPicker = document.getElementById('dw-month-picker');
+  const defaultMonth = monthPicker ? monthPicker.value : '2026-04';
+  updateMonthlyAccuracyChart(defaultMonth);
+  updateLoadAccuracyChart(defaultMonth);
+}
+
+// 更新月度预测准确率图表
+function updateMonthlyAccuracyChart(month) {
+  console.log('updateMonthlyAccuracyChart called with month:', month);
+  const chartDom = document.getElementById('dw-review-accuracy-chart');
+  if (!chartDom) {
+    console.error('Chart container not found');
+    return;
+  }
+  console.log('Chart container dimensions:', chartDom.offsetWidth, 'x', chartDom.offsetHeight);
+  
+  let chart = echarts.getInstanceByDom(chartDom);
+  if (!chart) {
+    console.log('Initializing new chart instance');
+    chart = echarts.init(chartDom);
+  }
+  
+  // 根据月份生成数据（示例：2026-04 → 30天，2026-02 → 28天等）
+  const monthInfo = month.split('-');
+  const year = parseInt(monthInfo[0]);
+  const monthNum = parseInt(monthInfo[1]);
+  const daysInMonth = new Date(year, monthNum, 0).getDate();
+  
+  const days = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}日`);
+  
+  // 模拟数据，根据月份略有变化
+  const baseDayAhead = 94.8 + (monthNum % 12) * 0.1;
+  const baseRealTime = 92.3 + (monthNum % 12) * 0.08;
+  const basePriceSpread = 88.6 + (monthNum % 12) * 0.15;
+  
+  const dayAheadData = days.map((_, i) => +(baseDayAhead + (Math.random() * 2 - 1)).toFixed(1));
+  const realTimeData = days.map((_, i) => +(baseRealTime + (Math.random() * 2 - 1)).toFixed(1));
+  const priceSpreadData = days.map((_, i) => +(basePriceSpread + (Math.random() * 2 - 1)).toFixed(1));
+  
+  chart.setOption({
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'item', backgroundColor: 'rgba(26,39,68,0.96)' },
-    legend: { orient: 'vertical', right: 20, top: 'center', textStyle: { color: '#8f95a8', fontSize: 10 } },
-    series: [{ type: 'pie', radius: ['40%', '70%'], center: ['35%', '50%'], avoidLabelOverlap: false, label: { show: false }, emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(0,0,0,0.5)' } }, data: penaltyData }]
+    tooltip: { 
+      trigger: 'axis', 
+      backgroundColor: 'rgba(26,39,68,0.96)',
+      formatter: function(params) {
+        let result = `${month}月 ${params[0].axisValue}<br/>`;
+        params.forEach(p => {
+          result += `${p.marker} ${p.seriesName}: ${p.value}%<br/>`;
+        });
+        return result;
+      }
+    },
+    legend: {
+      top: 8,
+      right: 20,
+      textStyle: { fontSize: 11, color: '#6b738f' },
+      itemWidth: 12,
+      itemHeight: 8
+    },
+    grid: { left: 70, right: 40, top: 40, bottom: 50 },
+    xAxis: { 
+      type: 'category', 
+      data: days,
+      axisLabel: { color: '#8f95a8', fontSize: 11, interval: Math.ceil(daysInMonth / 8) },
+      axisLine: { lineStyle: { color: '#eaecf0' } },
+      axisTick: { alignWithLabel: true },
+      name: '日期',
+      nameTextStyle: { color: '#8f95a8', fontSize: 11, padding: [10, 0, 0, 0] },
+      nameLocation: 'middle',
+      nameGap: 25
+    },
+    yAxis: { 
+      type: 'value', 
+      name: '准确率 (%)',
+      nameTextStyle: { color: '#8f95a8', fontSize: 11, padding: [0, 0, 0, 10] },
+      axisLabel: { color: '#8f95a8', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+      min: 85,
+      max: 100,
+      nameLocation: 'middle',
+      nameGap: 50
+    },
+    series: [
+      { 
+        name: '日前预测',
+        type: 'line', 
+        smooth: 0.3,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { width: 2, color: '#4f8ef7' },
+        data: dayAheadData
+      },
+      { 
+        name: '实时预测',
+        type: 'line', 
+        smooth: 0.3,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { width: 2, color: '#10b981' },
+        data: realTimeData
+      },
+      { 
+        name: '价差预测',
+        type: 'line', 
+        smooth: 0.3,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { width: 2, color: '#f59e0b' },
+        data: priceSpreadData
+      }
+    ]
+  });
+  setTimeout(() => chart.resize(), 100);
+  console.log('Chart updated for month:', month);
+}
+
+// 更新负荷预测准确率图表
+function updateLoadAccuracyChart(month) {
+  console.log('updateLoadAccuracyChart called with month:', month);
+  const chartDom = document.getElementById('dw-review-load-accuracy-chart');
+  if (!chartDom) {
+    console.error('Load chart container not found');
+    return;
+  }
+  console.log('Load chart container dimensions:', chartDom.offsetWidth, 'x', chartDom.offsetHeight);
+  
+  let chart = echarts.getInstanceByDom(chartDom);
+  if (!chart) {
+    console.log('Initializing new load chart instance');
+    chart = echarts.init(chartDom);
+  }
+  
+  // 根据月份生成一个月内的天数数据
+  const monthInfo = month.split('-');
+  const year = parseInt(monthInfo[0]);
+  const monthNum = parseInt(monthInfo[1]);
+  const daysInMonth = new Date(year, monthNum, 0).getDate();
+  
+  const days = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}日`);
+  
+  // 模拟数据，负荷预测准确率通常在92%左右波动
+  const baseAccuracy = 92.0;
+  const loadData = days.map((_, i) => {
+    // 模拟轻微波动，中间日期准确率稍高
+    const dayFactor = Math.sin((i / daysInMonth) * Math.PI) * 0.5;
+    const randomFactor = Math.random() * 1.5 - 0.75;
+    const accuracy = baseAccuracy + dayFactor + randomFactor;
+    return +(accuracy).toFixed(1);
   });
   
-  // 2. 历史偏差趋势
-  const trendChart = echarts.init(document.getElementById('dw-review-deviation-trend'));
-  const months = ['2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04'];
-  const trendData = months.map((_, i) => +(4.5 + 0.8 * Math.sin(i * Math.PI / 3) + (Math.random() * 0.6 - 0.3)).toFixed(1));
-  trendChart.setOption({
+  chart.setOption({
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
-    grid: { left: 40, right: 16, top: 8, bottom: 28 },
-    xAxis: { type: 'category', data: months, axisLabel: { color: '#8f95a8', fontSize: 10 } },
-    yAxis: { type: 'value', name: '%', nameTextStyle: { color: '#8f95a8', fontSize: 10 }, axisLabel: { color: '#8f95a8', fontSize: 10 }, splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } } },
-    series: [{ type: 'line', smooth: 0.3, symbol: 'circle', symbolSize: 6, lineStyle: { width: 3, color: '#8b5cf6' }, data: trendData }]
+    tooltip: { 
+      trigger: 'axis', 
+      backgroundColor: 'rgba(26,39,68,0.96)', 
+      formatter: function(params) {
+        let result = `${month}月 ${params[0].axisValue}<br/>`;
+        params.forEach(p => {
+          result += `${p.marker} ${p.seriesName}: ${p.value}%<br/>`;
+        });
+        return result;
+      }
+    },
+    grid: { left: 60, right: 30, top: 20, bottom: 45 },
+    xAxis: { 
+      type: 'category', 
+      data: days,
+      axisLabel: { color: '#8f95a8', fontSize: 10, interval: Math.ceil(daysInMonth / 8) },
+      axisLine: { lineStyle: { color: '#eaecf0' } },
+      axisTick: { alignWithLabel: true },
+      name: '日期',
+      nameTextStyle: { color: '#8f95a8', fontSize: 10, padding: [10, 0, 0, 0] },
+      nameLocation: 'middle',
+      nameGap: 25
+    },
+    yAxis: { 
+      type: 'value', 
+      name: '准确率 (%)',
+      nameTextStyle: { color: '#8f95a8', fontSize: 10, padding: [0, 0, 0, 10] }, 
+      axisLabel: { color: '#8f95a8', fontSize: 10 }, 
+      splitLine: { lineStyle: { color: '#f0f2f7', type: 'dashed' } },
+      min: 88,
+      max: 96,
+      nameLocation: 'middle',
+      nameGap: 40
+    },
+    series: [{ 
+      name: '负荷预测准确率',
+      type: 'line', 
+      smooth: 0.3, 
+      symbol: 'circle', 
+      symbolSize: 6, 
+      lineStyle: { width: 3, color: '#8b5cf6' }, 
+      data: loadData,
+      areaStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: 'rgba(139, 92, 246, 0.2)' },
+          { offset: 1, color: 'rgba(139, 92, 246, 0.02)' }
+        ])
+      }
+    }]
   });
+  setTimeout(() => chart.resize(), 100);
+  console.log('Load chart updated for month:', month);
 }
 
 // ==================== 负荷预测弹窗 ====================
@@ -2266,7 +3285,16 @@ function initDwLoadChart(type) {
   const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
   chart.setOption({
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(26,39,68,0.96)' },
+    tooltip: { 
+      trigger: 'axis', 
+      backgroundColor: 'rgba(26,39,68,0.96)',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
+    },
     legend: { data: ['预测负荷', '实际负荷'], top: 0, right: 10, textStyle: { color: '#8f95a8', fontSize: 11 } },
     grid: { left: 48, right: 16, top: 36, bottom: 32 },
     xAxis: { type: 'category', data: hours.filter((_, i) => i % 3 === 0), axisLabel: { color: '#8f95a8', fontSize: 10, interval: 0 }, axisLine: { lineStyle: { color: '#eaecf0' } } },
@@ -2503,6 +3531,141 @@ document.addEventListener('click', function(e) {
     }, 300);
   }
 });
+
+// ==================== 数据复盘板块交互函数 ====================
+function setDailyDate(type) {
+  const datePicker = document.getElementById('dw-daily-date-picker');
+  const today = new Date();
+  let targetDate = new Date();
+  
+  switch(type) {
+    case 'today':
+      targetDate = today;
+      break;
+    case 'yesterday':
+      targetDate.setDate(today.getDate() - 1);
+      break;
+    case 'week':
+      // 本周第一天（周日）
+      targetDate.setDate(today.getDate() - today.getDay());
+      break;
+  }
+  
+  const formattedDate = targetDate.toISOString().split('T')[0];
+  datePicker.value = formattedDate;
+  
+  // 更新按钮激活状态
+  document.querySelectorAll('.dw-date-selector .dw-card-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  // 这里可以添加更新KPI数据的函数调用
+  updateDailyKPIs(formattedDate);
+}
+
+function updateDailyKPIs(date) {
+  // 模拟根据日期更新KPI数据
+  console.log('更新日期:', date, '的KPI数据');
+  
+  // 解析日期，生成基于日期的仿真数据
+  const dateObj = new Date(date);
+  const dayOfMonth = dateObj.getDate();
+  const month = dateObj.getMonth() + 1; // 0-11 -> 1-12
+  const dayOfWeek = dateObj.getDay(); // 0-6, 0是周日
+  
+  // 基于日期生成不同的仿真数据
+  // 使用日期、月份、星期作为种子，生成相对稳定但不同的数据
+  const dateSeed = dayOfMonth * 100 + month;
+  
+  // 四个KPI的基准值
+  const baseValues = [95.2, 93.1, 89.5, 91.8];
+  
+  // 生成基于日期的变化
+  const dailyVariations = baseValues.map((base, index) => {
+    // 根据日期和KPI索引生成不同的变化
+    const variationSeed = (dateSeed + index * 7) % 30;
+    const variation = (variationSeed - 15) * 0.1; // -1.5 到 +1.5 的变化
+    
+    // 周末数据通常略有不同
+    const weekendAdjustment = (dayOfWeek === 0 || dayOfWeek === 6) ? -0.3 : 0;
+    
+    // 月中数据通常比月初/月末更稳定
+    const monthPhaseAdjustment = Math.sin((dayOfMonth / 31) * Math.PI) * 0.2;
+    
+    const finalValue = base + variation + weekendAdjustment + monthPhaseAdjustment;
+    
+    // 限制在合理范围内
+    const minValues = [90, 88, 85, 87];
+    const maxValues = [98, 96, 93, 95];
+    
+    return Math.max(minValues[index], Math.min(maxValues[index], +finalValue.toFixed(1)));
+  });
+  
+  // 更新KPI显示
+  document.querySelectorAll('.dw-kpi-value').forEach((el, index) => {
+    if (index < dailyVariations.length) {
+      el.innerHTML = dailyVariations[index] + '<small> %</small>';
+    }
+  });
+  
+  // 更新趋势数据（随机生成）
+  document.querySelectorAll('.dw-kpi-trend').forEach((el, index) => {
+    const trendValues = ['▲ 0.4%', '▲ 0.8%', '▲ 0.9%', '▲ 1.2%'];
+    if (index < trendValues.length) {
+      // 基于日期生成不同的趋势
+      const trendSeed = (dateSeed + index * 13) % 10;
+      const trendTypes = ['▲ ', '▼ '];
+      const trendType = trendSeed < 7 ? trendTypes[0] : trendTypes[1]; // 70%上涨，30%下跌
+      const trendValue = (trendSeed * 0.1 + 0.1).toFixed(1);
+      el.textContent = trendType + trendValue + '%';
+      el.className = 'dw-kpi-trend ' + (trendType === '▲ ' ? 'up' : 'down');
+    }
+  });
+  
+  console.log('生成仿真数据:', dailyVariations);
+}
+
+function refreshDailyKPIs() {
+  const datePicker = document.getElementById('dw-daily-date-picker');
+  const selectedDate = datePicker.value;
+  updateDailyKPIs(selectedDate);
+}
+
+function refreshMonthlyCharts() {
+  const monthPicker = document.getElementById('dw-month-picker');
+  const selectedMonth = monthPicker.value;
+  
+  console.log('刷新月份:', selectedMonth, '的图表数据');
+  
+  // 这里可以添加更新图表的函数调用
+  updateMonthlyAccuracyChart(selectedMonth);
+  updateLoadAccuracyChart(selectedMonth);
+}
+
+
+
+// 初始化事件监听
+document.addEventListener('DOMContentLoaded', function() {
+  const datePicker = document.getElementById('dw-daily-date-picker');
+  const monthPicker = document.getElementById('dw-month-picker');
+  
+  if (datePicker) {
+    datePicker.addEventListener('change', function() {
+      updateDailyKPIs(this.value);
+    });
+  }
+  
+  if (monthPicker) {
+    monthPicker.addEventListener('change', function() {
+      refreshMonthlyCharts();
+    });
+  }
+  
+  // 初始化图表
+  refreshMonthlyCharts();
+});
 </script>
 </body>
 </html>
+<!-- END: JavaScript Code -->
